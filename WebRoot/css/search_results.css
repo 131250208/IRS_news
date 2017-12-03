@@ -1,0 +1,100 @@
+@CHARSET "UTF-8";
+
+body {
+	color: #ccc;
+}
+
+#div_input {
+	padding: auto 15px;
+	margin-bottom: 30px;
+}
+
+#div_input input {
+	height: 36px;
+	background-color: transparent;
+	color: #fff;
+}
+
+#div_btn button {
+	height: 36px;
+	font-size: 15px;
+}
+
+div#recommendation>div.row {
+	margin-bottom: 15px;
+}
+
+#div_btn button {
+	width: 100%;
+}
+
+/* @media screen and (max-width: 767px) {
+	
+} */
+#search_form {
+	margin-top: 20px;
+}
+
+.nav-tabs {
+	margin-bottom: 20px;
+}
+
+.nav-tabs a {
+	color: #fff;
+}
+
+.nav-tabs a:hover {
+	color: #555;
+}
+
+div#sim_words {
+	margin-bottom: 10px;
+}
+
+div#sim_words>a {
+	margin-left: 10px;
+}
+
+p#count_results {
+	font-size: 13px;
+	margin-bottom: 30px;
+}
+
+.result {
+	font-size: 13px;
+	line-height: 1.54;
+	word-wrap: break-word;
+	word-break: break-word;
+	margin-bottom: 30px;
+	table-layout: fixed;
+}
+
+.result>title {
+	font-size: medium;
+	margin-bottom: 2px;
+}
+
+span.count_view {
+	margin-left: 20px;
+	font-size: 13px;
+}
+
+span.count_view, span.date, div.result>div.bottom>a, p#count_results {
+	color: #888;
+}
+
+.result>.title>a {
+	text-decoration: underline;
+}
+
+.result>div {
+	padding-left: 0px;
+}
+a em {
+	text-decoration: underline;
+}
+
+em {
+	font-style: normal;
+	color: #c00;
+}

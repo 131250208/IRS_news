@@ -1,0 +1,42 @@
+@CHARSET "UTF-8";
+
+#logo {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-top: 150px;
+	margin-bottom: 20px;
+	text-align: center;
+	max-height: 100%;
+	max-width: 100%;
+}
+
+#div_input {
+	padding: 0px 15px;
+	margin-bottom: 30px;
+}
+
+#div_input input {
+	height: 36px;
+	background-color: transparent;
+	color: #fff;
+}
+
+#div_btn button {
+	height: 36px;
+	font-size: 15px;
+}
+
+div#recommendation > div.row {
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+#div_btn button {
+	width: 100%;
+}
+/* 
+@media screen and (max-width: 767px) {
+	#div_btn button {
+		width: 100%;
+	}
+} */

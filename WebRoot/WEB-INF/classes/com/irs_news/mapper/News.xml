@@ -5,7 +5,7 @@
 
 	<mapper namespace="com.irs_news.mapper.NewsMapper">
 	    <insert id="add" parameterType="News" >
-	        insert into news_ ( name ) values (#{title}, #{profile})    
+	        insert into news_ ( name ) values (#{title}, #{abstract_})    
 	    </insert>
 	    
 	    <delete id="delete" parameterType="News" >

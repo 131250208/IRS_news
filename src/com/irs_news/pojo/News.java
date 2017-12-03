@@ -1,12 +1,25 @@
 package com.irs_news.pojo;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-
 public class News {
 	private int id;
 	private String title;
-	private String profile;
+	private String date;
+	private String abstract_;
+	private String url;
+	private int heat;
 	
+	public String getAbstract_() {
+		return abstract_;
+	}
+	public void setAbstract_(String abstract_) {
+		this.abstract_ = abstract_;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	public int getId() {
 		return id;
 	}
@@ -19,10 +32,16 @@ public class News {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getProfile() {
-		return profile;
+	public String getDate() {
+		return date;
 	}
-	public void setProfile(String profile) {
-		this.profile = profile;
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public int getHeat() {
+		return heat;
+	}
+	public void setHeat(int heat) {
+		this.heat = heat;
 	}
 }

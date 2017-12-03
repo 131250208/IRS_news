@@ -21,7 +21,10 @@
     <mvc:annotation-driven />
      
     <mvc:default-servlet-handler />
- 
+ 	<mvc:resources location="/images/" mapping="/img/**"/>
+ 	<mvc:resources location="/css/" mapping="/styles/**"/>
+ 	<mvc:resources location="/js/" mapping="/scripts/**"/>
+ 	
     <!-- 视图定位 -->
     <bean
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">
