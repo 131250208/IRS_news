@@ -10,41 +10,60 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.irs_news.pojo.News;
 import com.irs_news.service.NewsService;
+import com.irs_news.service.WordService;
 import com.irs_news.service.enums.Ranking_indicator;
 
 @Controller
 @RequestMapping("")
 public class NewsController {
 	@Autowired
-    NewsService newsService;
-	
-    @RequestMapping("search_results")
-    public ModelAndView searchResults(){
-    	ModelAndView mav = new ModelAndView();
-    	
-    	List<News> list_news = newsService.search("key_words", Ranking_indicator.SIMILARITY, 1);
-    	mav.addObject("list_news", list_news);
-    	mav.setViewName("search_results");
-    	return mav;
-    }
-    
-    @RequestMapping("search_page")
-    public ModelAndView get_search_page(){
-    	ModelAndView mav = new ModelAndView();
-    	
-    	mav.setViewName("search_page");
-    	return mav;
-    }
-    
-    @RequestMapping("hijacktest")
-    public ModelAndView hijack(HttpServletRequest request){
-    	String cookie = request.getParameter("cookie");
-    	System.out.println(cookie);
-    	
-    	ModelAndView mav = new ModelAndView();
-    	
-    	mav.setViewName("redirect:http://www.baidu.com");
-    	return mav;
-    }
+	NewsService newsService;
+	@Autowired
+	WordService wordService;
+
+	@RequestMapping("search_results")
+	public ModelAndView searchResults() {
+		ModelAndView mav = new ModelAndView();
+
+		List<News> list_news = newsService.search("key_words", Ranking_indicator.SIMILARITY, 1);
+		List<String> list_sim_words = wordService.get_sim_words("key_words");
+		mav.addObject("list_news", list_news);
+		mav.addObject("list_sim_words", list_sim_words);
+
+		mav.setViewName("search_results");
+		return mav;
+	}
+
+	@RequestMapping("search_page")
+	public ModelAndView get_search_page() {
+		ModelAndView mav = new ModelAndView();
+
+		List<News> list_hot_news = newsService.get_hot_news(8);
+		List<News> articles_former = list_hot_news.subList(0, 4);
+		List<News> articles_latter = list_hot_news.subList(4, 8);
+		mav.addObject("articles_former", articles_former);
+		mav.addObject("articles_latter", articles_latter);
+
+		mav.setViewName("search_page");
+		return mav;
+	}
+
+	@RequestMapping("hello")
+	public ModelAndView hello(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.setViewName("cookiehijack");
+		return mav;
+	}
+
+	@RequestMapping("hijacktest")
+	public ModelAndView hijack(HttpServletRequest request) {
+		String cookie = request.getParameter("cookie");
+		System.out.println("»ñÈ¡cookie------------->" + cookie);
+
+		ModelAndView mav = new ModelAndView();
+
+		return mav;
+	}
 
 }

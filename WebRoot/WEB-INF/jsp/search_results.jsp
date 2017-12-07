@@ -36,12 +36,9 @@
 		<!-- 相关查询推荐（词项） -->
 		<div id="sim_words">
 			相关查询推荐: 
-			<a href="#" >词项1</a>
-			<a href="#" >词项2</a>
-			<a href="#" >词项3</a>
-			<a href="#" >词项4</a>
-			<a href="#" >词项5</a>
-			
+			<c:forEach items="${list_sim_words}" var="word" varStatus="st">
+				<a href="#" >${word}</a>
+			</c:forEach>			
 		</div>
 		
 		<!-- 查询结果条数 -->

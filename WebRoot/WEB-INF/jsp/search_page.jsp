@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="rapid" uri="http://www.rapid-framework.org.cn/rapid"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <rapid:override name="static_pre">
 	<link href="styles/search_page.css" rel="stylesheet">
@@ -32,16 +33,14 @@
 
 		<div class="col-sm-6 col-sm-offset-3" id="recommendation">
 			<div class="row">
-				<a href="#" class="col-sm-3 col-xs-6">推荐热门新闻1</a> 
-				<a href="#" class="col-sm-3 col-xs-6">推荐热门新闻2</a> 
-				<a href="#" class="col-sm-3 col-xs-6">推荐热门新闻3</a>
-				<a href="#" class="col-sm-3 col-xs-6">推荐热门新闻4</a>
+				<c:forEach items="${articles_former}" var="article" varStatus="st">
+					<a href="${article.url}" class="col-sm-3 col-xs-6" title="${article.abstract}">${article.title}</a> 
+				</c:forEach>
 			</div>
 			<div class="row">
-				<a href="#" class="col-sm-3 col-xs-6">推荐热门新闻5</a> 
-				<a href="#" class="col-sm-3 col-xs-6">推荐热门新闻6</a> 
-				<a href="#" class="col-sm-3 col-xs-6">推荐热门新闻7</a>
-				<a href="#" class="col-sm-3 col-xs-6">推荐热门新闻8</a>
+				<c:forEach items="${articles_latter}" var="article" varStatus="st">
+					<a href="${article.url}" class="col-sm-3 col-xs-6" title="${article.abstract}">${article.title}</a> 
+				</c:forEach>
 			</div>
 		</div>
 	</div>
