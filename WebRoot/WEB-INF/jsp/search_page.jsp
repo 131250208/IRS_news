@@ -21,8 +21,8 @@
 					<input type="text" name="search_text" class="form-control"
 						id="searchtext" required pattern="[^\\,;]+"
 						oninvalid="setCustomValidity('搜索内容不能为空，且不包含特殊字符(\\，；)。')"
-						oninput="setCustomValidity('')"> <input type="hidden"
-						name="search_category" id="search_category" value="category">
+						oninput="setCustomValidity('')"> 
+					<input type="hidden" name="ranking_indicator" value="similarity">
 					<input type="hidden" name="page_index" value="1">
 				</div>
 				<div class="col-sm-1 col-xs-10 col-sm-offset-0 col-xs-offset-1" id="div_btn">
@@ -34,12 +34,12 @@
 		<div class="col-sm-6 col-sm-offset-3" id="recommendation">
 			<div class="row">
 				<c:forEach items="${articles_former}" var="article" varStatus="st">
-					<a href="${article.url}" class="col-sm-3 col-xs-6" title="${article.abstract}">${article.title}</a> 
+					<a href="${article.url}" target="_blank" class="col-sm-3 col-xs-6" title="${article.abstract_}">${article.title}</a> 
 				</c:forEach>
 			</div>
 			<div class="row">
 				<c:forEach items="${articles_latter}" var="article" varStatus="st">
-					<a href="${article.url}" class="col-sm-3 col-xs-6" title="${article.abstract}">${article.title}</a> 
+					<a href="${article.url}" target="_blank" class="col-sm-3 col-xs-6" title="${article.abstract_}">${article.title}</a> 
 				</c:forEach>
 			</div>
 		</div>

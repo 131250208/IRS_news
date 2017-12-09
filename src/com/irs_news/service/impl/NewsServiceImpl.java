@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.irs_news.mapper.NewsMapper;
 import com.irs_news.pojo.News;
 import com.irs_news.service.NewsService;
-import com.irs_news.service.enums.Ranking_indicator;
 
 @Service
 public class NewsServiceImpl implements NewsService {
@@ -16,7 +15,7 @@ public class NewsServiceImpl implements NewsService {
 	NewsMapper newsMapper;
 
 	@Override
-	public List<News> search(String key_words, Ranking_indicator ranking_indicator, int page_index) {
+	public List<News> search(String key_words, String ranking_indicator, int page_index) {
 		// TODO Auto-generated method stub
 
 		// 根据参数返回结果

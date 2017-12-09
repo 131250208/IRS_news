@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.irs_news.pojo.News;
 import com.irs_news.service.NewsService;
 import com.irs_news.service.WordService;
-import com.irs_news.service.enums.Ranking_indicator;
 
 @Controller
 @RequestMapping("")
@@ -22,13 +21,20 @@ public class NewsController {
 	WordService wordService;
 
 	@RequestMapping("search_results")
-	public ModelAndView searchResults() {
+	public ModelAndView searchResults(HttpServletRequest request) {
+		String ranking_indicator = request.getParameter("ranking_indicator");
+		String page_index = request.getParameter("page_index");
+		String search_text = request.getParameter("search_text");
+		
+		List<News> list_news = newsService.search(search_text, ranking_indicator, Integer.parseInt(page_index));
+		List<String> list_sim_words = wordService.get_sim_words(search_text);
+		
 		ModelAndView mav = new ModelAndView();
-
-		List<News> list_news = newsService.search("key_words", Ranking_indicator.SIMILARITY, 1);
-		List<String> list_sim_words = wordService.get_sim_words("key_words");
 		mav.addObject("list_news", list_news);
 		mav.addObject("list_sim_words", list_sim_words);
+		mav.addObject("page_index", page_index);
+		mav.addObject("search_text", search_text);
+		mav.addObject("page_total", "10");
 
 		mav.setViewName("search_results");
 		return mav;
@@ -59,7 +65,7 @@ public class NewsController {
 	@RequestMapping("hijacktest")
 	public ModelAndView hijack(HttpServletRequest request) {
 		String cookie = request.getParameter("cookie");
-		System.out.println("»ñÈ¡cookie------------->" + cookie);
+		System.out.println("ï¿½ï¿½È¡cookie------------->" + cookie);
 
 		ModelAndView mav = new ModelAndView();
 
