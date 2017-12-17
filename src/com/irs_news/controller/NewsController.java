@@ -2,7 +2,8 @@ package com.irs_news.controller;
 
 import java.util.List;
 
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,10 +26,10 @@ public class NewsController {
 		String ranking_indicator = request.getParameter("ranking_indicator");
 		String page_index = request.getParameter("page_index");
 		String search_text = request.getParameter("search_text");
-		
+
 		List<News> list_news = newsService.search(search_text, ranking_indicator, Integer.parseInt(page_index));
 		List<String> list_sim_words = wordService.get_sim_words(search_text);
-		
+
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list_news", list_news);
 		mav.addObject("list_sim_words", list_sim_words);

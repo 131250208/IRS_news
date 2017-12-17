@@ -98,3 +98,7 @@ em {
 	font-style: normal;
 	color: #c00;
 }
+
+div.hidden_bottom > hr{
+	color: #d9d9d9;
+}
