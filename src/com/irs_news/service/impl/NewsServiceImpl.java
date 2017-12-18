@@ -33,7 +33,7 @@ public class NewsServiceImpl implements NewsService {
 		// @杨寿国
 		// 1、用工具将search_text切词
 		// 2、用切好的词搜索 轮排索引树 找到 所有的词项id
-		// 3、用词项id的list搜数据库找到词项对应的倒排索引
+		// 3、用词项id的list搜数据库找到所有词项对应的倒排索引
 		// 4、快速合并倒排索引并返回排名最高的1000个文档的id
 		// 5、文档id的list赋值给以下id_list
 
