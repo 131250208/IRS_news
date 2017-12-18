@@ -20,6 +20,8 @@ TODO
 public class JcsegServiceImpl implements JcsegService {
 	private static int seg_mode = JcsegTaskConfig.SIMPLE_MODE;//分词模式配置
 	private static ASegment seg = null;
+	//字典的文件绝对路径
+	private static String dir_path = "/home/ysg/workspace/IR_assignment/newir/IRS_news/lexicon";
 	private static boolean isInstance = false;//判断是否实例化
 	private JcsegTaskConfig config = null;
 	private ADictionary dic = null;
@@ -37,6 +39,16 @@ public class JcsegServiceImpl implements JcsegService {
 	public void loadConfig() {
 		// TODO Auto-generated method stub
 		config = new JcsegTaskConfig();
+		config.setLoadCJKPinyin(true);
+		config.setICnName(true);
+		config.setMixCnLength(6);
+		config.setMaxCnLnadron(4);
+		config.setCnNumToArabic(false);
+		config.setCnFactionToArabic(false);
+		config.setAppendCJKSyn(false);
+		config.setAppendPartOfSpeech(false);
+		config.setLoadCJKPos(false);
+		
 	}
 
 	@Override
@@ -45,7 +57,7 @@ public class JcsegServiceImpl implements JcsegService {
 		if (config != null) {
 			dic = DictionaryFactory.createDefaultDictionary(config);
 			try {
-				dic.loadFromLexiconDirectory((config.getLexiconPath())[0]);
+				dic.loadFromLexiconDirectory(dir_path);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
