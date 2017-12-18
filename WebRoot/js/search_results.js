@@ -7,6 +7,7 @@ function after_click_page() {
     var page_index = $("input[name= 'input_page_index']").val();
     //get_manage_logs(page_index);
 }
+// 折叠面板的点击事件函数
 function collapse_listener(){
 	$("a.comments_up").bind("click",function(){
 		$(this).parent().next().find("div.collapse").collapse("hide");
@@ -21,6 +22,13 @@ function collapse_listener(){
 		$(this).parent().next().find("div.news_sim").collapse("toggle");
 	});
 }
+// 推荐词项的点击事件函数
+function recmmended_words_listener(){
+	$("a.recommended_word").bind("click",function(){
+		var word = $(this).data("word");
+	});
+}
+
 $(document).ready(
     function () {
         var input_page_total = $("input[name= 'input_page_total']");

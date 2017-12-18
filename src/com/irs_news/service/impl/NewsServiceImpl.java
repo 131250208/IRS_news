@@ -16,16 +16,6 @@ public class NewsServiceImpl implements NewsService {
 	@Autowired
 	NewsMapper newsMapper;
 
-	// 获取相关情绪的评论数量
-	public int count_comments(List<Comment> comments, int emotion) {
-		int count = 0;
-		for (Comment c : comments) {
-			if (c.getEmotion() == emotion)
-				count++;
-		}
-		return count;
-	}
-
 	@Override
 	public List<News> search(String search_text, String ranking_indicator, int page_index) {
 		// TODO Auto-generated method stub
@@ -43,6 +33,7 @@ public class NewsServiceImpl implements NewsService {
 		id_list.add(4);
 		id_list.add(7);
 
+		// @杨寿国，提供相关度前1000的新闻的id_list, 按相关度顺序排列
 		List<News> news_list = newsMapper.search(id_list);
 		for (News n : news_list) {
 			// 将新闻里的评论分成两个list，分别为褒贬，方便前端调用
@@ -62,6 +53,11 @@ public class NewsServiceImpl implements NewsService {
 			n.setNews_sim(newsMapper.get_simNews(n.getId()));
 		}
 
+		// @杨寿国
+		// 若是按时间和热度排序
+		// news_list还需要在这里再重新排序
+
+		// 排序后按页码返回10个
 		return news_list;
 	}
 
@@ -71,10 +67,11 @@ public class NewsServiceImpl implements NewsService {
 		return null;
 	}
 
+	// 这个已经写完了
 	@Override
 	public List<News> get_hot_news(int num) {
 		// TODO Auto-generated method stub
-		return newsMapper.get_hotNews(8);
+		return newsMapper.get_hotNews(num);
 	}
 
 }

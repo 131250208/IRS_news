@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.irs_news.pojo.News;
+import com.irs_news.pojo.Word;
 import com.irs_news.service.NewsService;
 import com.irs_news.service.WordService;
 
@@ -28,11 +29,11 @@ public class NewsController {
 		String search_text = request.getParameter("search_text");
 
 		List<News> list_news = newsService.search(search_text, ranking_indicator, Integer.parseInt(page_index));
-		List<String> list_sim_words = wordService.get_sim_words(search_text);
+		List<Word> list_simAndRela_words = wordService.get_simAndRela_words(search_text);
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list_news", list_news);
-		mav.addObject("list_sim_words", list_sim_words);
+		mav.addObject("list_simAndRela_words", list_simAndRela_words);
 		mav.addObject("page_index", page_index);
 		mav.addObject("search_text", search_text);
 		mav.addObject("page_total", "10");

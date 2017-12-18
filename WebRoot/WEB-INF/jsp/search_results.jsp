@@ -40,8 +40,8 @@
 		<!-- 相关查询推荐（词项） -->
 		<div id="sim_words">
 			相关查询推荐:
-			<c:forEach items="${list_sim_words}" var="word" varStatus="st">
-				<a href="#">${word}</a>
+			<c:forEach items="${list_simAndRela_words}" var="word" varStatus="st">
+				<a class="recommended_word" href="javascript:void(0);" data-word="${word.word}">${word.word}</a>
 			</c:forEach>
 		</div>
 
@@ -81,7 +81,7 @@
 						</c:forEach>
 						<c:if test="${fn:length(news.comments_up)>0}">
 							<hr/>
-								<div style="text-align:center;"><a href="${news.url}">点击查看更多</a></div>
+								<div style="text-align:center;"><a href="${news.url}" target="_blank">点击查看更多</a></div>
 							<hr/>
 						</c:if>
 					</div>
@@ -97,7 +97,7 @@
 						</c:forEach>
 						<c:if test="${fn:length(news.comments_up)>0}">
 							<hr/>
-								<div style="text-align:center;"><a href="${news.url}">点击查看更多</a></div>
+								<div style="text-align:center;"><a href="${news.url}" target="_blank">点击查看更多</a></div>
 							<hr/>
 						</c:if>
 					</div>
@@ -107,7 +107,7 @@
 							<c:if test="${st_n.count<10}">
 								<article>
 									${n.date}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<a href="${n.url}">${n.title}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<a href="${n.url}" target="_blank">${n.title}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<span class="count_view glyphicon glyphicon-eye-open">(${n.heat})</span>
 								</article>
 							</c:if>

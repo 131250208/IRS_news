@@ -21,4 +21,9 @@ public class WordServiceTest extends ServiceTest {
 		id_list.add(4);
 		System.out.println(wordService.get_words_byIds(id_list));
 	}
+
+	@Test
+	public void testGet_simAndRela_words() {
+		System.out.println(wordService.get_simAndRela_words("test"));
+	}
 }
