@@ -31,10 +31,10 @@
 	</form>
 
 	<!-- 排序依据 -->
-	<ul class="nav nav-tabs" id="nav_result_cat">
-		<li class="cat" id="cat_category"><a data-toggle="tab">相关度</a></li>
-		<li class="cat" id="cat_type"><a data-toggle="tab">时间</a></li>
-		<li class="cat" id="cat_brand"><a data-toggle="tab">热度</a></li>
+	<ul class="nav nav-tabs" id="nav_search_type">
+		<li><a data-toggle="tab" data-type="similarity">相关度</a></li>
+		<li><a data-toggle="tab" data-type="datetime">时间</a></li>
+		<li><a data-toggle="tab" data-type="heat">热度</a></li>
 	</ul>
 
 

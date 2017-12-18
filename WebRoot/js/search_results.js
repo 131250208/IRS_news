@@ -4,8 +4,8 @@
 
 // 点击页码后会调用的函数
 function after_click_page() {
-    var page_index = $("input[name= 'input_page_index']").val();
-    //get_manage_logs(page_index);
+    //var page_index = $("input[name= 'page_index']").val();
+    $("form#search_form").submit();
 }
 // 折叠面板的点击事件函数
 function collapse_listener(){
@@ -31,8 +31,22 @@ function recmmended_words_listener(){
 	});
 }
 
+// 搜索类型tab的点击事件
+function search_type_tabs_listener(){
+	$("ul#nav_search_type > li > a").bind("click",function(){
+		var type = $(this).data("type");
+		$("input[name = 'ranking_indicator']").val(type);
+		$("form#search_form").submit();
+		
+	});
+}
 $(document).ready(
     function () {
+    	// 激活标签
+    	var ranking_indicator = $("input[name= 'ranking_indicator']").val();
+		$("ul#nav_search_type > li > a[data-type = '"+ ranking_indicator +"']").parent().addClass("active");
+		
+    			
         var input_page_total = $("input[name= 'page_total']");
         var input_page_index = $("input[name= 'page_index']");
 
@@ -42,7 +56,10 @@ $(document).ready(
         // 给折叠区域加监听点击的事件
         collapse_listener();
         
-        // 给推荐的关键词添加点击事件-》查询
+        // 给推荐的关键词添加点击事件->提交查询
         recmmended_words_listener();
+        
+        // 给搜索类型指标tab添加点击事件->提交查询
+        search_type_tabs_listener();
     }
 );

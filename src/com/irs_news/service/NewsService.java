@@ -7,7 +7,7 @@ import com.irs_news.pojo.News;
 public interface NewsService {
 
 	// 检索函数
-	// 参数：关键词， 排序指标（相关度，热度，时间），页码。
+	// 参数：关键词， 排序指标（相关度，热度，时间/"similarity", "heat", "datetime"），页码。
 	// K值取1000，每页10篇，所以页码参数取值为1～10
 	// 返回： 新闻list
 	List<News> search(String key_words, String ranking_indicator, int page_index);
