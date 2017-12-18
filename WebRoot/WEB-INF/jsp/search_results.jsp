@@ -9,7 +9,7 @@
 
 <rapid:override name="content">
 	<!-- 搜索框 -->
-	<div id="search_form" role="form">
+	<form id="search_form" action="search_results" method="post" role="form">
 		<div class="form-group row" id="search-group">
 			<div class="col-sm-5" id="div_input">
 				<input type="text" id="searchtext" name="search_text" value="${search_text}"
@@ -17,16 +17,18 @@
 					oninvalid="setCustomValidity('搜索内容不能为空，且不包含特殊字符(\\，；)。')"
 					oninput="setCustomValidity('')"> 
 				<input type="hidden"
-					name="input_page_index" value="${page_index}"> 
+					name="page_index" value="${page_index}"> 
 				<input
-					type="hidden" name="input_page_total" value="${page_total}">
+					type="hidden" name="page_total" value="${page_total}">
+				<input
+					type="hidden" name="ranking_indicator" value="${ranking_indicator}">
 			</div>
 			<div class="col-sm-1" id="div_btn">
 				<button type="submit" id="btn_search"
 					class="btn btn-sm btn-primary btn-block">搜索</button>
 			</div>
 		</div>
-	</div>
+	</form>
 
 	<!-- 排序依据 -->
 	<ul class="nav nav-tabs" id="nav_result_cat">
@@ -58,7 +60,7 @@
 						class="count_view glyphicon glyphicon-eye-open">(${news.heat})</span>
 				</h4>
 				<div class="abstract col-sm-12 col-xs-12">
-					<span class="date"> ${news.date}&nbsp;-&nbsp; </span>
+					<span class="date"> ${news.datetime}&nbsp;-&nbsp; </span>
 					${news.abstract_}
 				</div>
 				<div class="bottom col-sm-12 col-xs-12">
@@ -106,7 +108,7 @@
 						<c:forEach items="${news.news_sim}" var="n" varStatus="st_n">
 							<c:if test="${st_n.count<10}">
 								<article>
-									${n.date}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									${n.datetime}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<a href="${n.url}" target="_blank">${n.title}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<span class="count_view glyphicon glyphicon-eye-open">(${n.heat})</span>
 								</article>

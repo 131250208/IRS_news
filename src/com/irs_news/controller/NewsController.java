@@ -27,6 +27,7 @@ public class NewsController {
 		String ranking_indicator = request.getParameter("ranking_indicator");
 		String page_index = request.getParameter("page_index");
 		String search_text = request.getParameter("search_text");
+		String page_total = request.getParameter("page_total");
 
 		List<News> list_news = newsService.search(search_text, ranking_indicator, Integer.parseInt(page_index));
 		List<Word> list_simAndRela_words = wordService.get_simAndRela_words(search_text);
@@ -36,7 +37,8 @@ public class NewsController {
 		mav.addObject("list_simAndRela_words", list_simAndRela_words);
 		mav.addObject("page_index", page_index);
 		mav.addObject("search_text", search_text);
-		mav.addObject("page_total", "10");
+		mav.addObject("ranking_indicator", ranking_indicator);
+		mav.addObject("page_total", page_total);
 
 		mav.setViewName("search_results");
 		return mav;

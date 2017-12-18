@@ -24,6 +24,7 @@
 						oninput="setCustomValidity('')"> 
 					<input type="hidden" name="ranking_indicator" value="similarity">
 					<input type="hidden" name="page_index" value="1">
+					<input type="hidden" name="page_total" value="10">
 				</div>
 				<div class="col-sm-1 col-xs-10 col-sm-offset-0 col-xs-offset-1" id="div_btn">
 					<button type="submit" class="btn btn-primary">搜索</button>

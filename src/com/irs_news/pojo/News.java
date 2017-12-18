@@ -5,7 +5,7 @@ import java.util.List;
 public class News {
 	private int id;
 	private String title;
-	private String date;
+	private String datetime;
 	private String content;
 	private String abstract_;
 	private String url;
@@ -86,14 +86,6 @@ public class News {
 		this.title = title;
 	}
 
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
-
 	public int getHeat() {
 		return heat;
 	}
@@ -108,5 +100,13 @@ public class News {
 
 	public void setNews_sim(List<News> news_sim) {
 		this.news_sim = news_sim;
+	}
+
+	public String getDatetime() {
+		return datetime;
+	}
+
+	public void setDatetime(String datetime) {
+		this.datetime = datetime;
 	}
 }

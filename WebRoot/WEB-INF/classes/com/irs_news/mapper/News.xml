@@ -12,7 +12,7 @@
  		<resultMap type="News" id="newsBean">
 	   		<id column="nid" property="id"/>
 	   		<result column="title" property="title"/>
-	   		<result column="date" property="date"/>
+	   		<result column="datetime" property="datetime"/>
 	   		<result column="abstract_" property="abstract_"/>
 	   		<result column="url" property="url"/>
 	   		<result column="heat" property="heat"/>
@@ -26,7 +26,7 @@
 	   	</resultMap>
 	    <select id="search" resultMap="newsBean" parameterType="java.util.List">
 			select n.id as nid, c.id as cid, c.content as c_content,
-			n.title, n.date, n.abstract_ , n.url, n.heat,
+			n.title, n.datetime, n.abstract_ , n.url, n.heat,
 			c.emotion, c.username, c.date_time
 	        from news_ n 
 	        left join comments c on n.id = c.news__id
