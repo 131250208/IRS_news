@@ -32,6 +32,8 @@ public class NewsServiceImpl implements NewsService {
 		id_list.add(2);
 		id_list.add(4);
 		id_list.add(7);
+        //for git test
+        id_list.add(8);
 
 		// @杨寿国，提供相关度前1000的新闻的id_list, 按相关度顺序排列
 		List<News> news_list = newsMapper.search(id_list);
