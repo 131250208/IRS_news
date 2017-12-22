@@ -18,4 +18,7 @@ public interface WordService {
 
 	// 用一组词项id查词项
 	public List<Word> get_words_byIds(List<Integer> id_list);
+
+	// 获取所有词项， 只需要word字段
+	public List<Word> get_words_all();
 }

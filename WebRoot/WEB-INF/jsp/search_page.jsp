@@ -18,7 +18,7 @@
 
 			<div class="form-group row" id="search-group">
 				<div class="col-sm-5 col-xs-10 col-sm-offset-3 col-xs-offset-1" id="div_input">
-					<input type="text" name="search_text" class="form-control"
+					<input type="text" name="search_text" class="form-control" data-provide="typeahead" autocomplete="off"
 						id="searchtext" required pattern="[^\\,;]+"
 						oninvalid="setCustomValidity('搜索内容不能为空，且不包含特殊字符(\\，；)。')"
 						oninput="setCustomValidity('')"> 
@@ -47,4 +47,7 @@
 	</div>
 </rapid:override>
 
+<rapid:override name="static_after">
+	<script src="scripts/search_page.js"></script>
+</rapid:override>
 <jsp:include page="./home.jsp"></jsp:include>

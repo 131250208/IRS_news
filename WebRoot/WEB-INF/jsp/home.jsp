@@ -26,6 +26,7 @@
 	href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet">
 <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="scripts/bootstrap3-typeahead.min.js"></script>
 
 <!-- 特定页面静态文件 -->
 <rapid:block name="static_pre"></rapid:block>

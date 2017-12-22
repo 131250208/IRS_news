@@ -38,4 +38,9 @@
 	    	from vocabulary v
 	    	where v.word = #{word}
 	    </select>
+	    
+	    <select id="get_words_all" resultType="Word">
+	    	select word
+	    	from vocabulary 
+	    </select>
 	</mapper>

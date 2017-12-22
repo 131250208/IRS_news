@@ -26,4 +26,9 @@ public class WordServiceTest extends ServiceTest {
 	public void testGet_simAndRela_words() {
 		System.out.println(wordService.get_simAndRela_words("test"));
 	}
+
+	@Test
+	public void testGet_words_all() {
+		System.out.println(wordService.get_words_all());
+	}
 }

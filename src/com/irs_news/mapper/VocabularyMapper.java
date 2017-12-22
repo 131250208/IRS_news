@@ -19,4 +19,8 @@ public interface VocabularyMapper {
 
 	// 查询一个词项对应的同义词项（在各文档中的权重向量相似的词项）
 	public List<Word> get_words_rela(int word_id);
+
+	// 查询所有词项，只返回word字段
+	public List<Word> get_words_all();
+
 }
