@@ -16,6 +16,7 @@ import com.irs_news.pojo.Comment;
 import com.irs_news.pojo.News;
 import com.irs_news.pojo.Word;
 import com.irs_news.service.NewsService;
+import com.irs_news.service.WordService;
 
 @Service
 public class NewsServiceImpl implements NewsService {
@@ -24,6 +25,7 @@ public class NewsServiceImpl implements NewsService {
 	@Autowired
 	VocabularyMapper wordMapper;
 	private static ASegment iseg = null;
+	private WordService wordtool = null;
 	@Override
 	public List<News> search(String search_text, String ranking_indicator, int page_index) {
 		// TODO Auto-generated method stub
@@ -36,6 +38,7 @@ public class NewsServiceImpl implements NewsService {
 		
 		//分词
 		new JcsegServiceImpl();
+		wordtool = new WordServiceImpl();
 		List<String> search_words = new ArrayList<String>();
 		iseg  = JcsegServiceImpl.getSeg();
 		try {
@@ -49,13 +52,16 @@ public class NewsServiceImpl implements NewsService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		//通过词典找到词项ID
 		List<Integer> id_list = new ArrayList<Integer>();
 		for (String string : search_words) {
-			Word ids = wordMapper.get_word_byString(string);
-			for (Integer integer : id_list) {
-				id_list.add(integer);
+			List<String> wordid = wordtool.get_IDs_byGword(string);
+			for (String string2 : wordid) {
+				id_list.add(new Integer(string2));
 			}
 			System.out.println(string);
+			System.out.println(wordid);
 		}
 		
 		

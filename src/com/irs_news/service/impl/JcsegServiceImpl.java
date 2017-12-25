@@ -1,6 +1,7 @@
 package com.irs_news.service.impl;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.lionsoul.jcseg.ASegment;
 import org.lionsoul.jcseg.core.ADictionary;
@@ -10,6 +11,8 @@ import org.lionsoul.jcseg.core.JcsegTaskConfig;
 import org.lionsoul.jcseg.core.SegmentFactory;
 
 import com.irs_news.service.JcsegService;
+import com.irs_news.tools.Tools;
+import com.irs_news.tools.Trie;
 
 /*
 作者：杨寿国
@@ -20,6 +23,9 @@ TODO
 public class JcsegServiceImpl implements JcsegService {
 	private static int seg_mode = JcsegTaskConfig.SIMPLE_MODE;//分词模式配置
 	private static ASegment seg = null;
+	private static Trie root = new Trie('#'); //前缀树的树根
+	private static String voc_file = "/home/ysg/workspace/IR_assignment/newir/IRS_news/sources/voc.txt"; //voc file
+
 	//字典的文件绝对路径
 	private static String dir_path = "/home/ysg/workspace/IR_assignment/newir/IRS_news/lexicon";
 	private static boolean isInstance = false;//判断是否实例化
@@ -28,26 +34,42 @@ public class JcsegServiceImpl implements JcsegService {
 	public JcsegServiceImpl() {
 		// TODO Auto-generated constructor stub
 		if (!isInstance) {
+			System.out.println("系统初始化中...");
 			loadConfig();
 			loadDic();
 			CreateIseg();
+			loadTries();//加载轮排索引工具
 			isInstance = true;
+			System.out.println("系统初始化完毕！");
 		}
 	}
 	
+	private void loadTries() {
+		// TODO Auto-generated method stub
+//		System.out.println(System.getProperty("user.dir"));//打印当前路径
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		Tools.loadTerm(voc_file, root, map);
+	}
+
 	@Override
 	public void loadConfig() {
 		// TODO Auto-generated method stub
-		config = new JcsegTaskConfig();
-		config.setLoadCJKPinyin(true);
-		config.setICnName(true);
-		config.setMixCnLength(6);
-		config.setMaxCnLnadron(4);
-		config.setCnNumToArabic(false);
-		config.setCnFactionToArabic(false);
-		config.setAppendCJKSyn(false);
-		config.setAppendPartOfSpeech(false);
-		config.setLoadCJKPos(false);
+		try {
+			config = new JcsegTaskConfig();
+			config.setLoadCJKPinyin(true);
+			config.setICnName(true);
+			config.setMixCnLength(6);
+			config.setMaxCnLnadron(4);
+			config.setCnNumToArabic(false);
+			config.setCnFactionToArabic(false);
+			config.setAppendCJKSyn(false);
+			config.setAppendPartOfSpeech(false);
+			config.setLoadCJKPos(false);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Exception when load jcseg config");
+		}
 		
 	}
 
@@ -76,6 +98,11 @@ public class JcsegServiceImpl implements JcsegService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	//
+	public static Trie get_TrieRoot() {
+		return root;
 	}
 
 	public static ASegment getSeg() {

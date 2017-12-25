@@ -1,5 +1,6 @@
 package com.irs_news.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +9,14 @@ import org.springframework.stereotype.Service;
 import com.irs_news.mapper.VocabularyMapper;
 import com.irs_news.pojo.Word;
 import com.irs_news.service.WordService;
+import com.irs_news.tools.Tools;
+import com.irs_news.tools.Trie;
 
 @Service
 public class WordServiceImpl implements WordService {
 	@Autowired
 	VocabularyMapper vocabularyMapper;
-
+	private static Trie root = new Trie('#');
 	@Override
 	public List<Word> get_simAndRela_words(String search_text) {
 		// TODO Auto-generated method stub
@@ -49,6 +52,15 @@ public class WordServiceImpl implements WordService {
 	public List<Word> get_words_byIds(List<Integer> id_list) {
 		// TODO Auto-generated method stub
 		return vocabularyMapper.get_words_byIDs(id_list);
+	}
+
+	@Override
+	public  List<String> get_IDs_byGword(String Gword) {
+		// TODO Auto-generated method stub
+		ArrayList<String> res = new ArrayList<String>();
+		Tools.search(Gword, JcsegServiceImpl.get_TrieRoot(), res);
+		
+		return res;
 	}
 
 }

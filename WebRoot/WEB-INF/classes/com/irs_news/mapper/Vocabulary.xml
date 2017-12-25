@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.irs_news.mapper.VocabularyMapper">
+	    <select id="get_words_byIDs" resultType="Word" parameterType="java.util.List">
+			select * 
+			from vocabulary v
+	        where v.id in 
+	        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+               #{item}       
+	       	</foreach>
+	    </select> 
+	    
+	    <select id="get_words_sim" resultType="Word" parameterType="_int">
+	    	select v.*
+	    	from vocabulary v,
+	    	word_word_similar wr
+	    	where wr.vocabulary_id1 = #{word_id} and v.id = wr.vocabulary_id2
+	    </select>
+	    
+	    <select id="get_words_rela" resultType="Word" parameterType="_int">
+	    	select v.*
+	    	from vocabulary v,
+	    	word_word_synonymous wr
+	    	where wr.vocabulary_id1 = #{word_id} and v.id = wr.vocabulary_id2
+	    </select>
+	    
+	    <select id="get_word_byID" resultType="Word" parameterType="_int">
+	    	select v.*
+	    	from vocabulary v
+	    	where v.id = #{id}
+	    </select>
+	    
+	    <select id="get_word_byString" resultType="Word" parameterType="java.lang.String">
+	    	select v.*
+	    	from vocabulary v
+	    	where v.word = #{word}
+	    </select>
+	</mapper>

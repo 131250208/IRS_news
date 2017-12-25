@@ -18,4 +18,7 @@ public interface WordService {
 
 	// 用一组词项id查词项
 	public List<Word> get_words_byIds(List<Integer> id_list);
+	
+	//输入词项或者带有通配符的词，返回相关的词项IDs
+	public List<String> get_IDs_byGword(String Gword);
 }

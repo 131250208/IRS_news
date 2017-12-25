@@ -28,19 +28,23 @@ public class NewsController {
 		String page_index = request.getParameter("page_index");
 		String search_text = request.getParameter("search_text");
 		String page_total = request.getParameter("page_total");
-
-		List<News> list_news = newsService.search(search_text, ranking_indicator, Integer.parseInt(page_index));
-		List<Word> list_simAndRela_words = wordService.get_simAndRela_words(search_text);
-
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("list_news", list_news);
-		mav.addObject("list_simAndRela_words", list_simAndRela_words);
-		mav.addObject("page_index", page_index);
-		mav.addObject("search_text", search_text);
-		mav.addObject("ranking_indicator", ranking_indicator);
-		mav.addObject("page_total", page_total);
+		
+		try {
+			List<News> list_news = newsService.search(search_text, ranking_indicator, Integer.parseInt(page_index));
+			List<Word> list_simAndRela_words = wordService.get_simAndRela_words(search_text);
+			mav.addObject("list_news", list_news);
+			mav.addObject("list_simAndRela_words", list_simAndRela_words);
+			mav.addObject("page_index", page_index);
+			mav.addObject("search_text", search_text);
+			mav.addObject("ranking_indicator", ranking_indicator);
+			mav.addObject("page_total", page_total);
 
-		mav.setViewName("search_results");
+			mav.setViewName("search_results");
+		} catch (NumberFormatException e) {
+			// TODO: handle exception
+		}
+
 		return mav;
 	}
 
