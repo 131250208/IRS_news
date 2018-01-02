@@ -147,7 +147,7 @@ public class Tools {
 			Trie cur = tree;
 			if (cur.isleaf)
 			{
-				res.add(root.getMap().get(string2Unicode(target)));
+				res.add(root.getMap().get(string2Unicode(target)).split("\t")[1]);
 			}
 			ArrayList<String> str_res = new ArrayList<String>();
 			String tmp_str = "";
@@ -160,11 +160,40 @@ public class Tools {
 			for(int i =0; i < str_res.size();i++)
 			{
 				String result = string2Unicode(target)+str_res.get(i);
+//				res.add(root.getMap().get(result).split("\t")[1]);
 				res.add(root.getMap().get(result));
 			}
 		}
 		
 	}
+	
+	
+//	public static void search(String target, Trie root, ArrayList<String> res)
+//	{
+//		Trie tree = root.search(string2Unicode(target));
+//		if (tree!=null)
+//		{
+//			Trie cur = tree;
+//			if (cur.isleaf)
+//			{
+//				res.add(root.getMap().get(string2Unicode(target)));
+//			}
+//			ArrayList<String> str_res = new ArrayList<String>();
+//			String tmp_str = "";
+//			for(int i =0; i<cur.index.size();i++)
+//			{
+//				Trie node = cur.children[cur.index.get(i).intValue()];
+//				Tools.iterator(node, tmp_str, str_res);
+//			}
+//			
+//			for(int i =0; i < str_res.size();i++)
+//			{
+//				String result = string2Unicode(target)+str_res.get(i);
+//				res.add(root.getMap().get(result));
+//			}
+//		}
+//		
+//	}
 	
 	/**
 	 * 将字符串转化成Unicode编码

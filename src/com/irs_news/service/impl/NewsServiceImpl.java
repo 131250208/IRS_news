@@ -26,6 +26,7 @@ public class NewsServiceImpl implements NewsService {
 	VocabularyMapper wordMapper;
 	private static ASegment iseg = null;
 	private WordService wordtool = null;
+	private Word wordObjects = null; //查询词项对象
 	@Override
 	public List<News> search(String search_text, String ranking_indicator, int page_index) {
 		// TODO Auto-generated method stub
@@ -56,12 +57,20 @@ public class NewsServiceImpl implements NewsService {
 		//通过词典找到词项ID
 		List<Integer> id_list = new ArrayList<Integer>();
 		for (String string : search_words) {
-			List<String> wordid = wordtool.get_IDs_byGword(string);
-			for (String string2 : wordid) {
-				id_list.add(new Integer(string2));
-			}
-			System.out.println(string);
-			System.out.println(wordid);
+//			List<String> wordid = wordtool.get_IDs_byGword(string);
+//			if (wordid.size() == 0) {
+//				System.out.println("no result");
+//				return null;
+//			}
+//			for (String string2 : wordid) {
+//				id_list.add(new Integer(string2));
+//			}
+//			System.out.println(string);
+//			System.out.println(wordid);
+			
+			wordObjects  = wordMapper.get_word_byString(string);
+			if (wordObjects != null)
+				id_list.add(wordObjects.getId());
 		}
 		
 		
