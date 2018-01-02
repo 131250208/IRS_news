@@ -26,7 +26,7 @@ public class NewsController {
 	WordService wordService;
 
 	@RequestMapping("search_results")
-	public ModelAndView searchResults(HttpServletRequest request) {
+	public ModelAndView get_search_results(HttpServletRequest request) {
 		String ranking_indicator = request.getParameter("ranking_indicator");
 		String page_index = request.getParameter("page_index");
 		String search_text = request.getParameter("search_text");
