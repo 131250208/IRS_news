@@ -17,6 +17,7 @@ public class WordServiceImpl implements WordService {
 	@Autowired
 	VocabularyMapper vocabularyMapper;
 	private static Trie root = new Trie('#');
+
 	@Override
 	public List<Word> get_simAndRela_words(String search_text) {
 		// TODO Auto-generated method stub
@@ -55,11 +56,11 @@ public class WordServiceImpl implements WordService {
 	}
 
 	@Override
-	public  List<String> get_IDs_byGword(String Gword) {
+	public List<String> get_IDs_byGword(String Gword) {
 		// TODO Auto-generated method stub
 		ArrayList<String> res = new ArrayList<String>();
 		Tools.search(Gword, JcsegServiceImpl.get_TrieRoot(), res);
-		
+
 		return res;
 	}
 

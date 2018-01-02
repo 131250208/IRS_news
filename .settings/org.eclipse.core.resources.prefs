@@ -1,7 +1,4 @@
 eclipse.preferences.version=1
 encoding//WebRoot/WEB-INF/jsp/home.jsp=UTF-8
-encoding//src/com/irs_news/service/CommentService.java=UTF-8
-encoding//src/com/irs_news/service/NewsService.java=UTF-8
 encoding//src/com/irs_news/service/WordService.java=UTF-8
-encoding//src/com/irs_news/service/impl/NewsServiceImpl.java=UTF-8
 encoding//src/com/irs_news/service/impl/WordServiceImpl.java=UTF-8
