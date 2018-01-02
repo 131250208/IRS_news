@@ -21,4 +21,7 @@ public interface WordService {
 
 	// 获取所有词项， 只需要word字段
 	public List<Word> get_words_all();
+
+	// 输入词项或者带有通配符的词，返回相关的词项IDs
+	public List<String> get_IDs_byGword(String Gword);
 }
