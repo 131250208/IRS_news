@@ -11,7 +11,7 @@ public interface WordService {
 	// 注：不存在的词项用拼音的编辑距离查找相似词项再进行以上步骤
 	// 参数： 输入 e.g. 邓小平最后一次露面只对江泽民说句什么（先分词）
 	// 返回： 相关词项list e.g. （江泽林，胡锦涛，主席，图样图森破，总理，见面……）
-	public List<Word> get_simAndRela_words(List<Integer> id_list);
+	public List<Word> get_simAndRela_words(List<Integer> id_list, boolean same_search);
 
 	// 用带通配符的关键词查找所有符号匹配的词项
 	// 参数： 带通配符的关键词 e.g. 洗*机
@@ -25,7 +25,7 @@ public interface WordService {
 	public List<String> get_IDs_byGword(String Gword);
 	
 	// 
-	public List<Integer> get_id_list(String search_text);
+	public List<Integer> get_id_list(String search_text, boolean same_search);
 	
 	
 }

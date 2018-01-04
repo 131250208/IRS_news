@@ -25,7 +25,7 @@ public class WordServiceImpl implements WordService {
 	private WordService wordtool = null;
 	private static Trie root = new Trie('#');
 	@Override
-	public List<Word> get_simAndRela_words(List<Integer> id_list) {
+	public List<Word> get_simAndRela_words(List<Integer> id_list, boolean same_search) {
 		// TODO Auto-generated method stub
 		// @杨寿国
 		// 输入内容可能为句子，要切词
@@ -80,7 +80,7 @@ public class WordServiceImpl implements WordService {
 	}
 
 	@Override
-	public List<Integer> get_id_list(String search_text) {
+	public List<Integer> get_id_list(String search_text, boolean same_search) {
 		// TODO Auto-generated method stub
 		
 		//分词

@@ -34,8 +34,11 @@ public class NewsServiceImpl implements NewsService {
 	NewsMapper newsMapper;
 	@Autowired
 	VocabularyMapper wordMapper;
+	
+	private static List<Integer> old_doc_list = null;
+	
 	@Override
-	public List<News> search(List<Integer> id_list, String ranking_indicator, int page_index) {
+	public List<News> search(List<Integer> id_list, String ranking_indicator, int page_index, boolean same_search) {
 		// TODO Auto-generated method stub
 		// @杨寿国
 		// 1、用工具将search_text切词

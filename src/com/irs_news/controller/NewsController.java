@@ -22,18 +22,26 @@ public class NewsController {
 	@Autowired
 	WordService wordService;
 
+//	private static String old_text = "";
+	
 	@RequestMapping("search_results")
 	public ModelAndView searchResults(HttpServletRequest request) {
 		String ranking_indicator = request.getParameter("ranking_indicator");
 		String page_index = request.getParameter("page_index");
 		String search_text = request.getParameter("search_text");
 		String page_total = request.getParameter("page_total");
+		boolean same_search = false;
+//		if  (old_text.equals(search_text)) {
+//			same_search = true;
+//		}else {
+//			old_text = search_text;
+//		}
 		ModelAndView mav = new ModelAndView();
 		
 		try {
-			List<Integer> id_list = wordService.get_id_list(search_text);
-			List<News> list_news = newsService.search(id_list, ranking_indicator, Integer.parseInt(page_index));
-			List<Word> list_simAndRela_words = wordService.get_simAndRela_words(id_list);
+			List<Integer> id_list = wordService.get_id_list(search_text, same_search);
+			List<News> list_news = newsService.search(id_list, ranking_indicator, Integer.parseInt(page_index), same_search);
+			List<Word> list_simAndRela_words = wordService.get_simAndRela_words(id_list, same_search);
 			mav.addObject("list_news", list_news);
 			mav.addObject("list_simAndRela_words", list_simAndRela_words);
 			mav.addObject("page_index", page_index);
@@ -51,6 +59,7 @@ public class NewsController {
 
 	@RequestMapping("search_page")
 	public ModelAndView get_search_page() {
+		
 		ModelAndView mav = new ModelAndView();
 
 		List<News> list_hot_news = newsService.get_hot_news(8);

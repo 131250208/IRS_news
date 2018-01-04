@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.irs_news.pojo.Word;
-import com.irs_news.pojo.inverted_element;
 
 public interface VocabularyMapper {
 
