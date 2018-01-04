@@ -1,22 +1,28 @@
 package com.irs_news.mapper;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.irs_news.pojo.Word;
+import com.irs_news.pojo.inverted_element;
 
 public interface VocabularyMapper {
 
-	// ²éÑ¯Ò»×éid¶ÔÓ¦µÄ´ÊÏî
+	//å¾—åˆ°æŸä¸€ä¸ªè¯é¡¹idå¯¹åº”çš„èƒœè€…è¡¨
+//	public LinkedList<inverted_element> get_winner_list(int word_id);
+	// é€šè¿‡è¯é¡¹id
 	public List<Word> get_words_byIDs(List<Integer> id_list);
 
-	// ²éÑ¯´ÊÏî
+	// ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 	public Word get_word_byID(int id);
 
 	public Word get_word_byString(String word);
 
-	// ²éÑ¯Ò»¸ö´ÊÏî¶ÔÓ¦µÄÏàËÆ´ÊÏî£¨Æ´Òô±à¼­¾àÀëÏàËÆ£©
+	// ï¿½ï¿½Ñ¯Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Æ´ï¿½ï¿½î£¨Æ´ï¿½ï¿½ï¿½à¼­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½
 	public List<Word> get_words_sim(int word_id);
 
-	// ²éÑ¯Ò»¸ö´ÊÏî¶ÔÓ¦µÄÍ¬Òå´ÊÏî£¨ÔÚ¸÷ÎÄµµÖĞµÄÈ¨ÖØÏòÁ¿ÏàËÆµÄ´ÊÏî£©
+	// ï¿½ï¿½Ñ¯Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½î£¨ï¿½Ú¸ï¿½ï¿½Äµï¿½ï¿½Ğµï¿½È¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÆµÄ´ï¿½ï¿½î£©
 	public List<Word> get_words_rela(int word_id);
+	
+	public int get_id(String word);
 }

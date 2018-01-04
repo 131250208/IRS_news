@@ -13,6 +13,7 @@
 	       	</foreach>
 	    </select> 
 	    
+	  
 	    <select id="get_words_sim" resultType="Word" parameterType="_int">
 	    	select v.*
 	    	from vocabulary v,
@@ -35,6 +36,12 @@
 	    
 	    <select id="get_word_byString" resultType="Word" parameterType="java.lang.String">
 	    	select v.*
+	    	from vocabulary v
+	    	where v.word = #{word}
+	    </select>
+	    
+	    <select id="get_id" resultType="_int" parameterType="java.lang.String">
+	    	select v.id
 	    	from vocabulary v
 	    	where v.word = #{word}
 	    </select>

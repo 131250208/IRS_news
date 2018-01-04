@@ -31,8 +31,9 @@ public class NewsController {
 		ModelAndView mav = new ModelAndView();
 		
 		try {
-			List<News> list_news = newsService.search(search_text, ranking_indicator, Integer.parseInt(page_index));
-			List<Word> list_simAndRela_words = wordService.get_simAndRela_words(search_text);
+			List<Integer> id_list = wordService.get_id_list(search_text);
+			List<News> list_news = newsService.search(id_list, ranking_indicator, Integer.parseInt(page_index));
+			List<Word> list_simAndRela_words = wordService.get_simAndRela_words(id_list);
 			mav.addObject("list_news", list_news);
 			mav.addObject("list_simAndRela_words", list_simAndRela_words);
 			mav.addObject("page_index", page_index);

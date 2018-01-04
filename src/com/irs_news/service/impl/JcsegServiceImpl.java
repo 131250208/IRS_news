@@ -24,7 +24,7 @@ public class JcsegServiceImpl implements JcsegService {
 	private static int seg_mode = JcsegTaskConfig.SIMPLE_MODE;//分词模式配置
 	private static ASegment seg = null;
 	private static Trie root = new Trie('#'); //前缀树的树根
-	private static String voc_file = "/home/ysg/workspace/IR_assignment/newir/IRS_news/sources/voc_dict.txt"; //voc file
+	private static String voc_file = "/home/ysg/workspace/IR_assignment/newir/IRS_news/sources/voc.txt"; //voc file
 
 	//字典的文件绝对路径
 	private static String dir_path = "/home/ysg/workspace/IR_assignment/newir/IRS_news/lexicon";
@@ -38,7 +38,9 @@ public class JcsegServiceImpl implements JcsegService {
 			loadConfig(); //分词工具配置加载
 			loadDic();
 			CreateIseg();
-			//loadTries();//加载轮排索引工具
+			System.out.println("加载分词工具");
+			loadTries();//加载轮排索引工具
+			System.out.println("加载轮排索引");
 			isInstance = true;
 			System.out.println("系统初始化完毕！");
 		}
@@ -47,7 +49,6 @@ public class JcsegServiceImpl implements JcsegService {
 	private void loadTries() {
 		// TODO Auto-generated method stub
 //		System.out.println(System.getProperty("user.dir"));//打印当前路径
-		
 		HashMap<String, String> map = new HashMap<String, String>();
 		Tools.loadTerm(voc_file, root, map);
 	}

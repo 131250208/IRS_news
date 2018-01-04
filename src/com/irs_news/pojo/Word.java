@@ -1,11 +1,60 @@
 package com.irs_news.pojo;
 
+import java.sql.*;
+
 public class Word {
 	private int id;
 	private String word;
 	private double idf;
-	private String inverted_list;
-	private String vector;
+	public byte[] getInverted_list() {
+		return inverted_list;
+	}
+
+	public void setInverted_list(byte[] inverted_list) {
+		this.inverted_list = inverted_list;
+	}
+
+	public byte[] getVector() {
+		return vector;
+	}
+
+	public void setVector(byte[] vector) {
+		this.vector = vector;
+	}
+
+
+
+	public byte[] getWinner1st() {
+		return winner1st;
+	}
+
+	public void setWinner1st(byte[] winner1st) {
+		this.winner1st = winner1st;
+	}
+
+	public byte[] getWinner2nd() {
+		return winner2nd;
+	}
+
+	public void setWinner2nd(byte[] winner2nd) {
+		this.winner2nd = winner2nd;
+	}
+
+	public byte[] getWinner3rd() {
+		return winner3rd;
+	}
+
+	public void setWinner3rd(byte[] winner3rd) {
+		this.winner3rd = winner3rd;
+	}
+
+	private byte[] inverted_list;
+	private byte[] vector;
+	private byte[] winner1st;
+	private byte[] winner2nd;
+	private byte[] winner3rd;
+
+
 
 	@Override
 	public String toString() {
@@ -38,19 +87,5 @@ public class Word {
 		this.idf = idf;
 	}
 
-	public String getInverted_list() {
-		return inverted_list;
-	}
-
-	public void setInverted_list(String inverted_list) {
-		this.inverted_list = inverted_list;
-	}
-
-	public String getVector() {
-		return vector;
-	}
-
-	public void setVector(String vector) {
-		this.vector = vector;
-	}
+	
 }
