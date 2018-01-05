@@ -64,4 +64,10 @@ public class WordServiceImpl implements WordService {
 		return res;
 	}
 
+	@Override
+	public List<Word> get_words_all() {
+		// TODO Auto-generated method stub
+		return vocabularyMapper.get_words_all();
+	}
+
 }
