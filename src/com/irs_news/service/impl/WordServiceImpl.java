@@ -2,7 +2,10 @@ package com.irs_news.service.impl;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.lionsoul.jcseg.ASegment;
@@ -23,7 +26,6 @@ public class WordServiceImpl implements WordService {
 	
 	private static ASegment iseg = null;
 	private WordService wordtool = null;
-	private static Trie root = new Trie('#');
 	@Override
 	public List<Word> get_simAndRela_words(List<Integer> id_list, boolean same_search) {
 		// TODO Auto-generated method stub
@@ -61,7 +63,25 @@ public class WordServiceImpl implements WordService {
 	@Override
 	public List<Word> match_words(String key_word) {
 		// TODO Auto-generated method stub
-		return null;
+		//查找通配符位置，假设搜索词中只有一个通配符
+		int pos = key_word.indexOf("*");
+		
+		String target = key_word.substring(0, pos);
+		List<String> list;
+		if (pos < key_word.length()) {
+			list = Arrays.asList(key_word.substring(pos+1).split(""));
+			Collections.reverse(list);
+			target+= list.toString();
+		}
+
+		
+		ArrayList<String> res = new ArrayList<String>();
+		Tools.search(target, JcsegServiceImpl.get_TrieRoot(), res);
+		List<Word> wordlist = new ArrayList<Word>();
+		for (String word : res) {
+			wordlist.add(vocabularyMapper.get_word_byString(word));
+		}
+		return wordlist;
 	}
 
 	@Override
@@ -69,7 +89,8 @@ public class WordServiceImpl implements WordService {
 		// TODO Auto-generated method stub
 		return vocabularyMapper.get_words_byIDs(id_list);
 	}
-
+	
+	//暂时没用
 	@Override
 	public  List<String> get_IDs_byGword(String Gword) {
 		// TODO Auto-generated method stub

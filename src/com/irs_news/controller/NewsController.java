@@ -22,7 +22,7 @@ public class NewsController {
 	@Autowired
 	WordService wordService;
 
-//	private static String old_text = "";
+	private static String old_text = "";
 	
 	@RequestMapping("search_results")
 	public ModelAndView searchResults(HttpServletRequest request) {

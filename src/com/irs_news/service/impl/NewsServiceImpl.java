@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.StringReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -16,6 +18,7 @@ import org.lionsoul.jcseg.ASegment;
 import org.lionsoul.jcseg.core.IWord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.comparator.ComparableComparator;
 
 import com.irs_news.mapper.NewsMapper;
 import com.irs_news.mapper.VocabularyMapper;
@@ -35,8 +38,11 @@ public class NewsServiceImpl implements NewsService {
 	@Autowired
 	VocabularyMapper wordMapper;
 	
+	private static int number_news_of_everypage = 10; //每页显示的新闻数量
 	private static List<Integer> old_doc_list = null;
-	
+	private List <inverted_element> final_winner ;
+	private int start_pos;
+	private static List<Integer> doc_list;
 	@Override
 	public List<News> search(List<Integer> id_list, String ranking_indicator, int page_index, boolean same_search) {
 		// TODO Auto-generated method stub
@@ -48,49 +54,53 @@ public class NewsServiceImpl implements NewsService {
 		// 5、文档id的list赋值给以下id_list
 		
 		//通过词典找到词项对象
-		List<Word> word_list = wordMapper.get_words_byIDs(id_list);
 		
-		if (word_list.size() == 0)
-			return null;
-		
-		//对得到的胜者表进行合并，并且排序
-		List <inverted_element> final_winner = getListFrombyte(word_list.get(0).getWinner1st());
-		
-		System.out.println(word_list.get(0).getWord()+"胜者表长度为"+final_winner.size());
-		
-		double last_idf = word_list.get(0).getIdf();
-		for (int i = 1 ; i < word_list.size() ; ++i) {
-			System.out.print(word_list.get(i).getWord()+"胜者表长度为");
-			final_winner = getUnionbyDocID(final_winner, getListFrombyte(word_list.get(i).getWinner1st()) , last_idf , word_list.get(i).getIdf());
-		}
-		
-
-		//对合并后的胜者表进行按照 wfidf 排序
-		Collections.sort(final_winner,new Comparator<inverted_element>() {
-
-			@Override
-			public int compare(inverted_element o1, inverted_element o2) {
-				// TODO Auto-generated method stub
-				if (o1.getWf() >= o2.getWf()) {
-					return 1;
-				}
-				return -1;
+		//如果不是同一个查询
+		if (! same_search) {
+			List<Word> word_list = wordMapper.get_words_byIDs(id_list);
+			
+			if (word_list.size() == 0)
+				return null;
+			
+			//对得到的胜者表进行合并，并且排序
+			final_winner = getListFrombyte(word_list.get(0).getWinner1st());
+			
+			System.out.println(word_list.get(0).getWord()+"胜者表长度为"+final_winner.size());
+			
+			double last_idf = word_list.get(0).getIdf();
+			for (int i = 1 ; i < word_list.size() ; ++i) {
+				System.out.print(word_list.get(i).getWord()+"胜者表长度为");
+				final_winner = getUnionbyDocID(final_winner, getListFrombyte(word_list.get(i).getWinner1st()) , last_idf , word_list.get(i).getIdf());
 			}
-		});
-		System.out.println("排序合并之后的文档记录长度为"+final_winner.size());
-		if (final_winner.isEmpty())
-			return null;
-		
-		List<Integer> doc_list = new ArrayList<Integer>();
-		for (int i = 0 ; i < final_winner.size() && i < 1000 ; ++i) {
-			doc_list.add(final_winner.get(i).getDocID());
-		}
-		
-		
-		
+			
+
+			//对合并后的胜者表进行按照 wfidf 排序
+			Collections.sort(final_winner,new Comparator<inverted_element>() {
+
+				@Override
+				public int compare(inverted_element o1, inverted_element o2) {
+					// TODO Auto-generated method stub
+					if (o1.getWf() >= o2.getWf()) {
+						return 1;
+					}
+					return -1;
+				}
+			});
+			System.out.println("排序合并之后的文档记录长度为"+final_winner.size());
+			if (final_winner.isEmpty())
+				return null;
+			
+			doc_list = new ArrayList<Integer>();
+			for (int i = 0 ; i < final_winner.size() && i < 1000 ; ++i) {
+				doc_list.add(final_winner.get(i).getDocID());
+			}
+		}		
+		//System.out.println("page_index"+page_index);
 		// @杨寿国，提供相关度前1000的新闻的id_list, 按相关度顺序排列
-		List<News> news_list = newsMapper.search(doc_list);
+
 		
+		List<News> news_list = newsMapper.search(doc_list);
+		System.out.println("从数据库中得到新闻条数为"+news_list.size());
 		
 		for (News n : news_list) {
 			// 将新闻里的评论分成两个list，分别为褒贬，方便前端调用
@@ -109,13 +119,62 @@ public class NewsServiceImpl implements NewsService {
 			// 按id查找相关新闻
 			n.setNews_sim(newsMapper.get_simNews(n.getId()));
 		}
+		
+		//按照某种方式进行重新排序
+		Resort_newslist(news_list,ranking_indicator);
 
 		// @杨寿国
 		// 若是按时间和热度排序
 		// news_list还需要在这里再重新排序
 
 		// 排序后按页码返回10个
-		return news_list;
+		page_index -=1;
+		int start_pos = page_index*number_news_of_everypage;
+		if (page_index*number_news_of_everypage > news_list.size()) {
+			System.err.println("page_index error");
+			return null;
+		}
+			
+		
+		int end_pos = (page_index+1)*number_news_of_everypage;
+		if ((page_index+1)*number_news_of_everypage > news_list.size())
+			end_pos = news_list.size();
+//		System.out.println("rank_index"+ranking_indicator);
+		
+		return news_list.subList(start_pos, end_pos);
+	}
+	
+	//将得到的新闻列表重新排序
+	private void Resort_newslist(List<News> news_list, String ranking_indicator) {
+		
+		//按照时间进行排序
+		if (ranking_indicator.equals("time")) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+			Collections.sort(news_list, new Comparator<News>() {
+				@Override
+				public int compare(News o1, News o2) {
+					// TODO Auto-generated method stub
+					try {
+						if (sdf.parse(o1.getDatetime()).getTime() > sdf.parse(o2.getDatetime()).getTime())
+							return 1;
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					return 0;
+				}
+			});
+			//按照热度排序
+		}else if (ranking_indicator.equals("heat")) {
+			Collections.sort(news_list, new Comparator<News>() {
+
+				@Override
+				public int compare(News o1, News o2) {
+					// TODO Auto-generated method stub
+					return o1.getHeat() - o2.getHeat();
+				}
+			});
+		}
 	}
 	
 	
@@ -172,7 +231,8 @@ public class NewsServiceImpl implements NewsService {
 	public List<News> get_sim_news(int news_id) {
 		// TODO Auto-generated method stub
 		System.out.println("get_sim_news");
-		return null;
+		
+		return newsMapper.get_simNews(news_id);
 	}
 
 	// 这个已经写完了

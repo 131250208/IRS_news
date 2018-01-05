@@ -24,7 +24,7 @@ public class JcsegServiceImpl implements JcsegService {
 	private static int seg_mode = JcsegTaskConfig.SIMPLE_MODE;//分词模式配置
 	private static ASegment seg = null;
 	private static Trie root = new Trie('#'); //前缀树的树根
-	private static String voc_file = "/home/ysg/workspace/IR_assignment/newir/IRS_news/sources/voc.txt"; //voc file
+	private static String voc_file = "/home/ysg/workspace/IR_assignment/newir/IRS_news/src/sources/voc.txt"; //voc file
 
 	//字典的文件绝对路径
 	private static String dir_path = "/home/ysg/workspace/IR_assignment/newir/IRS_news/lexicon";
