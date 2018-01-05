@@ -1,13 +1,9 @@
-/**
- * 
- */
 
 $(document).ready(function(){
-	$.get("all_words",function(data,status){
+	$.get("get_words",function(data,status){
 	    if(status == "success"){
-	    	var words = JSON.parse(data);
-	    	$("input#searchtext").typeahead({source: words});
+	    	$("input#searchtext").typeahead({source: data});
 	    }
-	  });
+	  }, 'json');
 });
 

@@ -89,5 +89,11 @@ $(document).ready(
         
         // 给搜索类型指标tab添加点击事件->提交查询
         search_type_tabs_listener();
+        
+    	$.get("get_words",function(data,status){
+    	    if(status == "success"){
+    	    	$("input#searchtext").typeahead({source: data});
+    	    }
+    	  }, 'json');
     }
 );

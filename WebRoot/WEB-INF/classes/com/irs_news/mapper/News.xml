@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.irs_news.mapper.NewsMapper">
+	    
+	    <select id="get" parameterType="_int" resultType="News">
+	        select * from   news_  where id= #{id}    
+	    </select>
+
+ 		<resultMap type="News" id="newsBean">
+	   		<id column="nid" property="id"/>
+	   		<result column="title" property="title"/>
+	   		<result column="datetime" property="datetime"/>
+	   		<result column="abstract_" property="abstract_"/>
+	   		<result column="url" property="url"/>
+	   		<result column="heat" property="heat"/>
+	   		<collection property="comments" ofType="Comment">
+	   			<id column="cid" property="id"/>
+	   			<result column="c_content" property="content"/>
+	   			<result column="emotion" property="emotion"/>
+	   			<result column="username" property="username"/>
+	   			<result column="date_time" property="date_time"/>
+	   		</collection>
+	   	</resultMap>
+	    <select id="search" resultMap="newsBean" parameterType="java.util.List">
+			select n.id as nid, c.id as cid, c.content as c_content,
+			n.title, n.datetime, n.abstract_ , n.url, n.heat,
+			c.emotion, c.username, c.date_time
+	        from news_ n 
+	        left join comments c on n.id = c.news__id
+	        where n.id in 
+	        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+               #{item}       
+	       	</foreach>
+	    </select> 
+	    
+	    <select id="get_simNews" resultType="News" parameterType="_int">
+    	   	select n.* 
+    	   	from news_news_similar n_rla,
+    	   	news_ n
+    	   	where n_rla.news__id1 = #{id} and n_rla.news__id2 = n.id
+	    </select>
+	    
+	    <select id="get_hotNews" resultType="News" parameterType="_int">
+    	   	select n.* 
+    	   	from news_ n
+    	   	order by n.heat DESC
+    	   	limit 0, #{num}
+	    </select>
+	</mapper>

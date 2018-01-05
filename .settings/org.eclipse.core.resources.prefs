@@ -1,5 +1,11 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=ysg_dev
 eclipse.preferences.version=1
 encoding//WebRoot/WEB-INF/jsp/home.jsp=UTF-8
+encoding//src/com/irs_news/mapper/VocabularyMapper.java=UTF-8
 encoding//src/com/irs_news/service/WordService.java=UTF-8
+encoding//src/com/irs_news/service/impl/JcsegServiceImpl.java=UTF-8
+encoding//src/com/irs_news/service/impl/NewsServiceImpl.java=UTF-8
 encoding//src/com/irs_news/service/impl/WordServiceImpl.java=UTF-8
 encoding/<project>=UTF-8

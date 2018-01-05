@@ -53,7 +53,6 @@ public class NewsController {
 			mav.addObject("ranking_indicator", ranking_indicator);
 			mav.addObject("page_total", page_total);
 
-			System.out.println("news_sim_____________________" + list_news.get(0).getNews_sim().size());
 			mav.setViewName("search_results");
 		} catch (NumberFormatException e) {
 			// TODO: handle exception
@@ -62,7 +61,7 @@ public class NewsController {
 		return mav;
 	}
 
-	@RequestMapping("search_page")
+	@RequestMapping("/")
 	public ModelAndView get_search_page() {
 
 		ModelAndView mav = new ModelAndView();
@@ -96,7 +95,7 @@ public class NewsController {
 	}
 
 	@ResponseBody
-	@RequestMapping("all_words")
+	@RequestMapping(value = "/get_words", produces = "application/json; charset=utf-8")
 	public String get_all_words(HttpServletRequest request) {
 		List<Word> words = wordService.get_words_all();
 
@@ -104,7 +103,6 @@ public class NewsController {
 		for (Word w : words) {
 			words_strList.add(w.getWord());
 		}
-		System.out.println(JSON.toJSONString(words_strList));
 		return JSON.toJSONString(words_strList);
 	}
 
