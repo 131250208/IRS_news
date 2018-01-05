@@ -44,7 +44,7 @@ public static void main(String[] args) {
 	  Statement stat;
 	try {
 		stat = (Statement) conn.createStatement();
-		 String str = "SELECT id,word,idf,winner1st FROM vocabulary where word = \"今天\";";  
+		 String str = "SELECT id,word,idf,winner1st FROM vocabulary where word = \"分手\";";  
 		  if(conn!=null)
 		  {
 		   int vocabCount=0;

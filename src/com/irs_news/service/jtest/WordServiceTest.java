@@ -40,7 +40,7 @@ public class WordServiceTest extends ServiceTest {
 	// }
 
 	public void test() {
-		Word w = vocabularyMapper.get_word_byString("今天");
+		Word w = vocabularyMapper.get_word_byString("分手");
 		System.out.println(w);
 		// String x = w.getWinner1st();
 		try {
@@ -49,7 +49,9 @@ public class WordServiceTest extends ServiceTest {
 			@SuppressWarnings("unchecked")
 
 			LinkedList<inverted_element> sd = (LinkedList<inverted_element>) in.readObject();
-			System.out.println(sd.get(1).getDocID());
+			for(int i =0 ; i < 10 ; ++i) {
+				System.out.println();
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

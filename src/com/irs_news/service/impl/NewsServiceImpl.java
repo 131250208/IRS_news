@@ -64,7 +64,7 @@ public class NewsServiceImpl implements NewsService {
 			
 			//对得到的胜者表进行合并，并且排序
 			final_winner = getListFrombyte(word_list.get(0).getWinner1st());
-			
+
 			System.out.println(word_list.get(0).getWord()+"胜者表长度为"+final_winner.size());
 			
 			double last_idf = word_list.get(0).getIdf();
@@ -80,12 +80,15 @@ public class NewsServiceImpl implements NewsService {
 				@Override
 				public int compare(inverted_element o1, inverted_element o2) {
 					// TODO Auto-generated method stub
-					if (o1.getWf() >= o2.getWf()) {
-						return 1;
+					if (o1.getWf() > o2.getWf()) {
+						return -1;
 					}
-					return -1;
+					return 1;
 				}
 			});
+			for (int i = 0 ; i < 10 ; ++i) {
+				System.out.println(final_winner.get(i).getWf()+" id : "+final_winner.get(i).getDocID());
+			}
 			System.out.println("排序合并之后的文档记录长度为"+final_winner.size());
 			if (final_winner.isEmpty())
 				return null;
@@ -97,15 +100,17 @@ public class NewsServiceImpl implements NewsService {
 		}		
 		//System.out.println("page_index"+page_index);
 		// @杨寿国，提供相关度前1000的新闻的id_list, 按相关度顺序排列
-
 		
-		List<News> news_list = newsMapper.search(doc_list);
+//		List<News> news_list = newsMapper.search(doc_list);
+		List<News> news_list = getNews(doc_list);
 		System.out.println("从数据库中得到新闻条数为"+news_list.size());
 		
 		for (News n : news_list) {
 			// 将新闻里的评论分成两个list，分别为褒贬，方便前端调用
 			List<Comment> com_up = new ArrayList<Comment>();
 			List<Comment> com_down = new ArrayList<Comment>();
+			if (n.getComments() == null)
+				continue;
 			for (Comment c : n.getComments()) {
 				if (c.getEmotion() == 1)
 					com_up.add(c);
@@ -144,34 +149,51 @@ public class NewsServiceImpl implements NewsService {
 		return news_list.subList(start_pos, end_pos);
 	}
 	
+	private List<News> getNews(List<Integer> doc_list2) {
+		// TODO Auto-generated method stub
+		List<News> news = new ArrayList<News>();
+		
+		for (int docid : doc_list2) {
+			News newaa = newsMapper.get(docid);
+			if (newaa != null) {
+				news.add(newaa);
+			}else {
+				System.out.println("no news in database , docid = " + docid);
+			}
+		}
+		return news;
+	}
+
 	//将得到的新闻列表重新排序
 	private void Resort_newslist(List<News> news_list, String ranking_indicator) {
 		
 		//按照时间进行排序
-		if (ranking_indicator.equals("time")) {
+		if (ranking_indicator.equals("datetime")) {
+			System.out.println("排序指标"+ranking_indicator);
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 			Collections.sort(news_list, new Comparator<News>() {
 				@Override
 				public int compare(News o1, News o2) {
 					// TODO Auto-generated method stub
 					try {
-						if (sdf.parse(o1.getDatetime()).getTime() > sdf.parse(o2.getDatetime()).getTime())
+						if (sdf.parse(o2.getDatetime()).getTime() > sdf.parse(o1.getDatetime()).getTime())
 							return 1;
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					return 0;
+					return -1;
 				}
 			});
 			//按照热度排序
 		}else if (ranking_indicator.equals("heat")) {
+			System.out.println("排序指标"+ranking_indicator);
 			Collections.sort(news_list, new Comparator<News>() {
 
 				@Override
 				public int compare(News o1, News o2) {
 					// TODO Auto-generated method stub
-					return o1.getHeat() - o2.getHeat();
+					return o2.getHeat()- o1.getHeat();
 				}
 			});
 		}
