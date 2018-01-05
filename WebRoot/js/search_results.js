@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 
 // 点击页码后会调用的函数
 function after_click_page() {
@@ -40,6 +38,36 @@ function search_type_tabs_listener(){
 		
 	});
 }
+
+//点击页码后会调用的函数
+function after_click_page() {
+ var page_index = $("input[name= 'input_page_index']").val();
+ //get_manage_logs(page_index);
+}
+//折叠面板的点击事件函数
+function collapse_listener(){
+	$("a.comments_up").bind("click",function(){
+		$(this).parent().next().find("div.collapse").collapse("hide");
+		$(this).parent().next().find("div.comments_up").collapse("toggle");
+	});
+	$("a.comments_down").bind("click",function(){
+		$(this).parent().next().find("div.collapse").collapse("hide");
+		$(this).parent().next().find("div.comments_down").collapse("toggle");
+	});
+	$("a.sim_news").bind("click",function(){
+		$(this).parent().next().find("div.collapse").collapse("hide");
+		$(this).parent().next().find("div.news_sim").collapse("toggle");
+	});
+}
+//推荐词项的点击事件函数
+function recmmended_words_listener(){
+	$("a.recommended_word").bind("click",function(){
+		var word = $(this).data("word");
+		$("input[name = 'search_text']").val(word);
+		$("form#search_form").submit();
+	});
+}
+
 $(document).ready(
     function () {
     	// 激活标签

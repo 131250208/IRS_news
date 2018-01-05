@@ -13,11 +13,14 @@
 	       	</foreach>
 	    </select> 
 	    
+	  
 	    <select id="get_words_sim" resultType="Word" parameterType="_int">
 	    	select v.*
 	    	from vocabulary v,
 	    	word_word_similar wr
 	    	where wr.vocabulary_id1 = #{word_id} and v.id = wr.vocabulary_id2
+	    	order by wr.similarity desc
+	    	limit 0,5
 	    </select>
 	    
 	    <select id="get_words_rela" resultType="Word" parameterType="_int">
@@ -25,6 +28,8 @@
 	    	from vocabulary v,
 	    	word_word_synonymous wr
 	    	where wr.vocabulary_id1 = #{word_id} and v.id = wr.vocabulary_id2
+	    	order by wr.similarity desc
+	    	limit 0,5
 	    </select>
 	    
 	    <select id="get_word_byID" resultType="Word" parameterType="_int">
@@ -41,6 +46,12 @@
 	    
 	    <select id="get_words_all" resultType="Word">
 	    	select word
-	    	from vocabulary 
+	    	from vocabulary
+	    </select> 
+
+	    <select id="get_id" resultType="_int" parameterType="java.lang.String">
+	    	select v.id
+	    	from vocabulary v
+	    	where v.word = #{word}
 	    </select>
 	</mapper>

@@ -24,7 +24,6 @@
  	<mvc:resources location="/images/" mapping="/img/**"/>
  	<mvc:resources location="/css/" mapping="/styles/**"/>
  	<mvc:resources location="/js/" mapping="/scripts/**"/>
- 	<mvc:view-controller path="/" view-name="search_page"/>
  	
     <!-- 视图定位 -->
     <bean
