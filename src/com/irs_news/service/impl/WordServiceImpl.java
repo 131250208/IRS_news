@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.ibatis.binding.BindingException;
 import org.lionsoul.jcseg.ASegment;
 import org.lionsoul.jcseg.core.IWord;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +55,10 @@ public class WordServiceImpl implements WordService {
 		List<Word> res = new ArrayList<Word>();
 		int num_sim = Math.min(3, list_sim_wordsList.size());
 		int num_rela = Math.min(3, list_rela_wordsList.size());
-
-		res.addAll(list_sim_wordsList.subList(0, num_sim));
+		
 		res.addAll(list_rela_wordsList.subList(0, num_rela));
+		res.addAll(list_sim_wordsList.subList(0, num_sim));
+		
 		return res;
 	}
 
@@ -91,11 +93,10 @@ public class WordServiceImpl implements WordService {
 
 	// 暂时没用
 	@Override
-	public List<String> get_IDs_byGword(String Gword) {
+	public List<String> get_Term_byGword(String Gword) {
 		// TODO Auto-generated method stub
 		ArrayList<String> res = new ArrayList<String>();
 		Tools.search(Gword, JcsegServiceImpl.get_TrieRoot(), res);
-
 		return res;
 	}
 
@@ -107,7 +108,15 @@ public class WordServiceImpl implements WordService {
 
 	public List<Integer> get_id_list(String search_text, boolean same_search) {
 		// TODO Auto-generated method stub
-
+		
+		//判断是否含有通配符*
+//		int g_pos = 0 ;//第一个通配符位置
+//		if (search_text.contains("*")) {
+//			System.out.println("通配符查询");
+//			g_pos = search_text.indexOf('*');
+//			search_text.replaceAll("\\*", " ");
+//		}
+		
 		// 分词
 		new JcsegServiceImpl();
 		wordtool = new WordServiceImpl();
@@ -119,16 +128,33 @@ public class WordServiceImpl implements WordService {
 		try {
 			iseg.reset(new StringReader(search_text));
 			IWord word;
+			int pos = 0 ;
 			while ((word = iseg.next()) != null) {
 				search_words.add(word.getValue());
+				pos += word.getValue().length();
+//				if (g_pos > 0 && pos >= g_pos ) {
+//					System.out.println("给词项"+word.getValue()+"加通配符");
+//					List<String> gword = get_Term_byGword(word.getValue()+"$");
+//					for (String string : gword) {
+//						id_list.add(vocabularyMapper.get_id(string));
+//					}
+//					continue;
+//				}
 				id_list.add(vocabularyMapper.get_id(word.getValue()));
 			}
-
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}catch (BindingException e) {
+			// TODO: handle exception
+			System.out.println("数据库中缺少查询词项");
 		}
-
+		System.out.print(" 查询词项为 ");
+		for (String word : search_words) {
+			System.out.print(word+" ");
+		}
+		System.out.println();
+		
 		return id_list;
 	}
 

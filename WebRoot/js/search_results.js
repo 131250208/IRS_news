@@ -39,11 +39,6 @@ function search_type_tabs_listener(){
 	});
 }
 
-//点击页码后会调用的函数
-function after_click_page() {
- var page_index = $("input[name= 'input_page_index']").val();
- //get_manage_logs(page_index);
-}
 //折叠面板的点击事件函数
 function collapse_listener(){
 	$("a.comments_up").bind("click",function(){
@@ -56,7 +51,33 @@ function collapse_listener(){
 	});
 	$("a.sim_news").bind("click",function(){
 		$(this).parent().next().find("div.collapse").collapse("hide");
-		$(this).parent().next().find("div.news_sim").collapse("toggle");
+		
+		var news_id = $(this).data("newsId");
+		var news_sim_div = $(this).parent().next().find("div.news_sim");
+		
+		$.get("get_sim_news",
+				{ "news_id": news_id },
+				function(data,status){
+		    if(status == "success"){
+		    	news_list = data;
+		    	news_sim_div.empty();
+		    	if(news_list.length > 0) news_sim_div.append($("<hr/>"));
+		
+		    	for (var i = 0; i < news_list.length; i++)
+		    	{
+		    		var news_sim = $("<article>" + 
+									news_list[i].datetime + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+									"<a href='" + news_list[i].url + "' target='_blank'>" + news_list[i].title + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 
+									"<span class='count_view glyphicon glyphicon-eye-open'>(" + news_list[i].heat + ")</span>" + 
+								"</article>");
+		    		news_sim_div.append(news_sim);
+		    	}
+		    	news_sim_div.collapse("toggle");
+
+		    	if(news_list.length > 0) news_sim_div.append($("<hr/>"));
+		    }
+		  }, 'json');
+		
 	});
 }
 //推荐词项的点击事件函数

@@ -19,14 +19,14 @@
           <value>com.mysql.jdbc.Driver</value>  
       </property>  
       <property name="url">  
-          <value>jdbc:mysql://localhost:3306/irs_news?characterEncoding=UTF-8</value>  
+          <value>jdbc:mysql://localhost:3306/irs_news?characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull</value>  
      
       </property>  
       <property name="username">  
           <value>root</value>  
       </property>  
       <property name="password">  
-          <value>6536013</value>  
+          <value>Database6981228.</value>  
       </property>     
     </bean>
      

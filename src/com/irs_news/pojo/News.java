@@ -19,7 +19,8 @@ public class News {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "id = " + this.id + "; title = " + this.title + "; content = " + this.content;
+		return "id = " + this.id + "; title = " + this.title + "; content = " + this.content + "coments_len = "
+				+ comments.size();
 	}
 
 	public List<Comment> getComments_up() {

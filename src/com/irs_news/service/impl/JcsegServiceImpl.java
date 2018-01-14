@@ -24,11 +24,11 @@ public class JcsegServiceImpl implements JcsegService {
 	private static int seg_mode = JcsegTaskConfig.SIMPLE_MODE;// 鍒嗚瘝妯″紡閰嶇疆
 	private static ASegment seg = null;
 	private static Trie root = new Trie('#'); // 鍓嶇紑鏍戠殑鏍戞牴
-	private static String voc_file = "/home/ysg/eclipse-workspace/IRS_news/src/sources/voc.txt"; // voc
-																											// file
+	private static String voc_file = "C:/Users/15850/Documents/GitHub/J2EE/IRS_news_201801062209/IRS_news/src/sources/voc.txt"; // voc
+	// file
 
 	// 瀛楀吀鐨勬枃浠剁粷瀵硅矾寰�
-	private static String dir_path = "/home/ysg/eclipse-workspace/IRS_news/lexicon";
+	private static String dir_path = "C:/Users/15850/Documents/GitHub/J2EE/IRS_news_201801062209/IRS_news/lexicon";
 	private static boolean isInstance = false;// 鍒ゆ柇鏄惁瀹炰緥鍖�
 	private JcsegTaskConfig config = null;
 	private ADictionary dic = null;

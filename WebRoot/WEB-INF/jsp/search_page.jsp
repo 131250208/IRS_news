@@ -35,12 +35,19 @@
 		<div class="col-sm-6 col-sm-offset-3" id="recommendation">
 			<div class="row">
 				<c:forEach items="${articles_former}" var="article" varStatus="st">
-					<a href="${article.url}" target="_blank" class="col-sm-3 col-xs-6" title="${article.abstract_}">${article.title}</a> 
+					<a href="${article.url}" target="_blank" class="col-sm-3 col-xs-6" title="${article.abstract_}">
+					${article.title}<br>
+					<span class="count_view glyphicon glyphicon-eye-open">(${article.heat})</span> 
+					</a>
 				</c:forEach>
 			</div>
 			<div class="row">
 				<c:forEach items="${articles_latter}" var="article" varStatus="st">
-					<a href="${article.url}" target="_blank" class="col-sm-3 col-xs-6" title="${article.abstract_}">${article.title}</a> 
+					<a href="${article.url}" target="_blank" class="col-sm-3 col-xs-6" title="${article.abstract_}">
+					${article.title}<br>
+					<span class="count_view glyphicon glyphicon-eye-open">(${article.heat})</span>
+					</a>
+					 
 				</c:forEach>
 			</div>
 		</div>

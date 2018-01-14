@@ -1,6 +1,5 @@
 package com.irs_news.service.jtest;
 
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -9,23 +8,10 @@ import com.mysql.jdbc.Statement;
 
 import mybatis.inverted_element;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.sql.Blob;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Map;
 
 /*
 作者：杨寿国
@@ -44,7 +30,7 @@ public static void main(String[] args) {
 	  Statement stat;
 	try {
 		stat = (Statement) conn.createStatement();
-		 String str = "SELECT id,word,idf,winner1st FROM vocabulary where word = \"分手\";";  
+		 String str = "SELECT id,word,idf,winner1st FROM vocabulary where word = \"习近平\";";  
 		  if(conn!=null)
 		  {
 		   int vocabCount=0;
@@ -60,9 +46,10 @@ public static void main(String[] args) {
 		    ObjectInputStream tempOis = new ObjectInputStream(tempBlob.getBinaryStream());
 		    vector = (LinkedList<inverted_element>) tempOis.readObject();
 		    vocabCount++;
+		    System.out.println("长度为"+vector.size());
 		    System.out.println(term+"Winner1st: ");
 		    
-		    Collections.sort(vector);
+//		    Collections.sort(vector);
 		    
 		    for(int i=0;i<vector.size();i++)
 		    {

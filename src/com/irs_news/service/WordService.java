@@ -25,7 +25,7 @@ public interface WordService {
 	public List<Word> get_words_all();
 
 	// 输入词项或者带有通配符的词，返回相关的词项IDs
-	public List<String> get_IDs_byGword(String Gword);
+	public List<String> get_Term_byGword(String Gword);
 
 	//
 	public List<Integer> get_id_list(String search_text, boolean same_search);

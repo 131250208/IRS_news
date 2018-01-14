@@ -23,7 +23,7 @@ public class Connect {
 			System.out.println("加载驱动失败");
 			e.printStackTrace();
 		}
-		String url ="jdbc:mysql://127.0.0.1:3306/irs_news?characterEncoding=utf-8";
+		String url ="jdbc:mysql://127.0.0.1:3306/n_irs_news?characterEncoding=utf-8";
 		try {
 			conn = (Connection) DriverManager.getConnection(url,"root","6536013");
 			System.out.println("连接成功!");

@@ -12,7 +12,7 @@
 	<form id="search_form" action="search_results" method="post" role="form">
 		<div class="form-group row" id="search-group">
 			<div class="col-sm-5" id="div_input">
-				<input type="text" id="searchtext" name="search_text" value="${search_text}"
+				<input type="text" id="searchtext" name="search_text" value="${search_text}" autocomplete="off"
 					class="form-control" pattern="[^\\,;]+" required
 					oninvalid="setCustomValidity('搜索内容不能为空，且不包含特殊字符(\\，；)。')"
 					oninput="setCustomValidity('')"> 
@@ -48,7 +48,7 @@
 		</div>
 
 		<!-- 查询结果条数 -->
-		<p id="count_results">天眼为您提供相关结果：1000条</p>
+		<p id="count_results">天眼为您提供相关结果：${results_size}条</p>
 
 		<!-- 查询相关词项推荐 -->
 
@@ -61,14 +61,14 @@
 				</h4>
 				<div class="abstract col-sm-12 col-xs-12">
 					<span class="date"> ${news.datetime}&nbsp;-&nbsp; </span>
-					${news.abstract_}
+					${news.abstract_}...
 				</div>
 				<div class="bottom col-sm-12 col-xs-12">
 					<a class="comments_up" href="javascript:void(0);" id="comments_up" data-news-id="${news.id}"><span
 						class="glyphicon glyphicon-thumbs-up"></span>好评(${fn:length(news.comments_up)})</a> 
 					<a class="comments_down" href="javascript:void(0);" id="comments_down" data-news-id="${news.id}"><span class="glyphicon glyphicon-thumbs-down"></span>差评(${fn:length(news.comments_down)})</a>
 
-					<a class="sim_news" href="javascript:void(0);">相似新闻&nbsp;>>&nbsp;</a>
+					<a class="sim_news" href="javascript:void(0);" data-news-id="${news.id}">相似新闻&nbsp;>>&nbsp;</a>
 				</div>
 				<div class="col-sm-12 col-xs-12">
 					<div class="collapse comments_up col-sm-12 col-xs-12">
@@ -97,24 +97,13 @@
 								</article>
 							</c:if>
 						</c:forEach>
-						<c:if test="${fn:length(news.comments_up)>0}">
+						<c:if test="${fn:length(news.comments_down)>0}">
 							<hr/>
 								<div style="text-align:center;"><a href="${news.url}" target="_blank">点击查看更多</a></div>
 							<hr/>
 						</c:if>
 					</div>
 					<div class="collapse news_sim col-sm-12 col-xs-12">
-						<c:if test="${fn:length(news.news_sim)>0}"><hr/></c:if>
-						<c:forEach items="${news.news_sim}" var="n" varStatus="st_n">
-							<c:if test="${st_n.count<10}">
-								<article>
-									${n.datetime}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<a href="${n.url}" target="_blank">${n.title}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<span class="count_view glyphicon glyphicon-eye-open">(${n.heat})</span>
-								</article>
-							</c:if>
-						</c:forEach>
-						<c:if test="${fn:length(news.news_sim)>0}"><hr/></c:if>
 					</div>
 				</div>
 				
@@ -128,7 +117,6 @@
 		</div>
 	</div>
 
-	<!-- 相关文章推荐（相关词项的第一二篇以及该查询第一篇的相关文档） -->
 	<div id="content-right" class="col-sm-5"></div>
 </rapid:override>
 
