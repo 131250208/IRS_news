@@ -90,6 +90,8 @@ public class NewsServiceImpl implements NewsService {
 					// TODO Auto-generated method stub
 					if (o1.getWf() > o2.getWf()) {
 						return -1;
+					} else if (o1.getWf() == o2.getWf()) {
+						return 0;
 					}
 					return 1;
 				}
@@ -123,7 +125,7 @@ public class NewsServiceImpl implements NewsService {
 			if (n.getComments() == null)
 				continue;
 			for (Comment c : n.getComments()) {
-				if (c.getEmotion() == 1)
+				if (c.getEmotion() != -1)
 					com_up.add(c);
 				else {
 					com_down.add(c);
@@ -219,11 +221,10 @@ public class NewsServiceImpl implements NewsService {
 		}
 	}
 
-	// 取两个胜者表的并集
+	// 20180104更新，取两个胜者表的并集，取并集中排名前1000
 	public List<inverted_element> getUnionbyDocID(List<inverted_element> u1, List<inverted_element> u2, double u1_idf,
 			double u2_idf) {
 
-		System.out.println(u2.size());
 		List<inverted_element> newlist = new LinkedList<inverted_element>();
 
 		// 按照docid排序
@@ -249,12 +250,17 @@ public class NewsServiceImpl implements NewsService {
 				newlist.add(u1.get(l1));
 				l1++;
 				l2++;
-			} else if (doc1 > doc2) {
+			} else if (doc1 > doc2) {// 文档doc2不包含单词1
+				// 更新文档的wf = wf2 * idf2 + 0 * idf1
+				newlist.add(new inverted_element(doc2, u2.get(l2).getWf() * u2_idf * 0.01));
 				l2++;
-			} else {
+			} else { // 文档doc1不包含单词2
+				// 更新文档的wf = wf2 * idf2 + 0 * idf1
+				newlist.add(new inverted_element(doc1, u1.get(l1).getWf() * u1_idf * 0.01));
 				l1++;
 			}
 		}
+
 		return newlist;
 
 	}

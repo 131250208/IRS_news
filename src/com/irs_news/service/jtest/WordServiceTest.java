@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class WordServiceTest extends ServiceTest {
 			@SuppressWarnings("unchecked")
 
 			LinkedList<inverted_element> sd = (LinkedList<inverted_element>) in.readObject();
-			for(int i =0 ; i < 10 ; ++i) {
+			for (int i = 0; i < 10; ++i) {
 				System.out.println();
 			}
 		} catch (IOException e) {
@@ -67,7 +68,6 @@ public class WordServiceTest extends ServiceTest {
 		System.out.println(id);
 	}
 
-	@Test
 	public void testGet_words_all() {
 		List<Word> words = wordService.get_words_all();
 
@@ -76,5 +76,15 @@ public class WordServiceTest extends ServiceTest {
 			words_strList.add(w.getWord());
 		}
 		System.out.println(JSON.toJSONString(words_strList));
+	}
+
+	@Test
+	public void testGet_id() {
+		Date d1 = new Date();
+		int id = vocabularyMapper.get_id("任志强");
+		Date d2 = new Date();
+
+		System.out.println(d2.getTime() - d1.getTime());
+
 	}
 }

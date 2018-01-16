@@ -3,12 +3,15 @@ package com.irs_news.service.impl;
 import java.io.IOException;
 import java.util.HashMap;
 
+import javax.annotation.PostConstruct;
+
 import org.lionsoul.jcseg.ASegment;
 import org.lionsoul.jcseg.core.ADictionary;
 import org.lionsoul.jcseg.core.DictionaryFactory;
 import org.lionsoul.jcseg.core.JcsegException;
 import org.lionsoul.jcseg.core.JcsegTaskConfig;
 import org.lionsoul.jcseg.core.SegmentFactory;
+import org.springframework.stereotype.Service;
 
 import com.irs_news.service.JcsegService;
 import com.irs_news.tools.Tools;
@@ -20,29 +23,46 @@ import com.irs_news.tools.Trie;
 鏂囦欢鍚嶏細JcsegServiceImpl.java
 TODO
 */
+
+@Service
 public class JcsegServiceImpl implements JcsegService {
 	private static int seg_mode = JcsegTaskConfig.SIMPLE_MODE;// 鍒嗚瘝妯″紡閰嶇疆
 	private static ASegment seg = null;
 	private static Trie root = new Trie('#'); // 鍓嶇紑鏍戠殑鏍戞牴
-	private static String voc_file = "C:/Users/15850/Documents/GitHub/J2EE/IRS_news_201801062209/IRS_news/src/sources/voc.txt"; // voc
+	private static String voc_file = "C:/Users/15850/Documents/GitHub/J2EE/IRS_news_20180114/IRS_news/src/sources/voc_dict.txt"; // voc
 	// file
 
 	// 瀛楀吀鐨勬枃浠剁粷瀵硅矾寰�
-	private static String dir_path = "C:/Users/15850/Documents/GitHub/J2EE/IRS_news_201801062209/IRS_news/lexicon";
+	private static String dir_path = "C:/Users/15850/Documents/GitHub/J2EE/IRS_news_20180114/IRS_news/lexicon";
 	private static boolean isInstance = false;// 鍒ゆ柇鏄惁瀹炰緥鍖�
 	private JcsegTaskConfig config = null;
 	private ADictionary dic = null;
 
 	public JcsegServiceImpl() {
 		// TODO Auto-generated constructor stub
+		// if (!isInstance) {
+		// System.out.println("绯荤粺鍒濆鍖栦腑...");
+		// loadConfig(); // 鍒嗚瘝宸ュ叿閰嶇疆鍔犺浇
+		// loadDic();
+		// CreateIseg();
+		// System.out.println("鍔犺浇鍒嗚瘝宸ュ叿");
+		// loadTries();// 鍔犺浇杞帓绱㈠紩宸ュ叿
+		// System.out.println("鍔犺浇杞帓绱㈠紩");
+		// isInstance = true;
+		// System.out.println("绯荤粺鍒濆鍖栧畬姣曪紒");
+		// }
+	}
+
+	@PostConstruct
+	public void InitAll() {
 		if (!isInstance) {
-			System.out.println("绯荤粺鍒濆鍖栦腑...");
+			System.out.println("正在初始化...");
 			loadConfig(); // 鍒嗚瘝宸ュ叿閰嶇疆鍔犺浇
 			loadDic();
 			CreateIseg();
-			System.out.println("鍔犺浇鍒嗚瘝宸ュ叿");
+			System.out.println("初始化分词字典");
 			loadTries();// 鍔犺浇杞帓绱㈠紩宸ュ叿
-			System.out.println("鍔犺浇杞帓绱㈠紩");
+			System.out.println("初始化成功");
 			isInstance = true;
 			System.out.println("绯荤粺鍒濆鍖栧畬姣曪紒");
 		}
